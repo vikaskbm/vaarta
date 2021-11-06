@@ -10,14 +10,42 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:varta.helloWorld"
+		"onView:varta-sidebar",
+		"onCommand:varta.helloWorld",
+		"onCommand:varta.refresh"
+
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "varta-sidebar-view",
+					"title": "Varta",
+					"icon": "media/message.svg"
+				}
+			]
+		},
+		"views": {
+			"varta-sidebar-view": [
+				{
+					"type": "webview",
+					"id": "varta-sidebar",
+					"name": "Varta",
+					"icon": "media/message.svg",
+					"contextualTitle": "Varta"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "varta.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "varta.refresh",
+				"category": "Varta",
+				"title": "Refresh VS Code"
 			}
 		]
 	},
