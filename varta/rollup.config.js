@@ -28,12 +28,13 @@ export default fs
           dev: !production,
           // we'll extract any component CSS out into
           // a separate file - better for performance
+          emitCss: true,
           css: (css) => {
             css.write(name + ".css");
           },
           preprocess: sveltePreprocess(),
         }),
-        css({output: 'bundle.css'}),
+        css({output: name + ".css"}),
 
         // If you have external dependencies installed from
         // npm, you'll most likely need these plugins. In

@@ -6,7 +6,7 @@
  
 
 
-<h1 style="text-align: center;">FRIEND</h1>
+
 <div style="display: max-width: 800px;
     min-height: 300px;
     background-color: #fff; 

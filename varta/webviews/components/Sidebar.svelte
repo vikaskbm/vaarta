@@ -3,51 +3,65 @@
     import Friends from "./Friends.svelte";
     import Chat from "./Chat.svelte";
     let loading = false;
-    let user = "Vikas";
+    let user = true;
     let page = "chat";
 </script>
+
+<style>
+    .login-btn {
+        position:relative;
+        margin-top: 5em;
+    }
+</style>
+
+{#if page!=='chat'}
+    <div style="display: flex;">
+        <button style="background:transparent" on:click={() => {
+            page="home";
+        }}>Hello, {user} </button>
+    </div>
+    <hr>
+{/if}
 
 {#if loading } 
     <div>Loading...</div>
 {:else if user}
-    
-{#if page!=='contact'}
-    {#if page!=='chat'}
-        <div style="display: flex;">
-            <button disabled style="background:transparent">Hello, {user} </button>
-        </div>
-        <br>
-    {/if}
-
     {#if page==='home'}
-        <button>Search Button</button>
-        <br>
+        <button on:click={() => {
+            page="search";
+        }}>Search Button</button>
+        <hr>
         <Friends/>
-
     {:else if page==='search'}
         <Search/>
-
-    {:else}
+    {:else if page==='chat'}
+        <h3 style="text-align: center;">FRIEND</h3>
+        <hr>
         <Chat />
-        <div>Chat one person here</div>
+    {:else}
+        <h1>This is contact component</h1>
+        <!-- Contact Component -->
+        <button on:click={() => {
+            page="home";
+        }}>Back</button>
     {/if}
-
-    <button style="position:relative;
-    margin-top:auto; margin-bottom: 0%;">
-        Contact Us
-    </button>
-
+    <div style="position: absolute; margin-left: 33%; bottom:0; margin-bottom:40px">
+        <button on:click={() => {
+            page="chat";
+            user=false;
+        }}>Logout</button>
+    </div>
 {:else}
-    <!-- Contact Component -->
+    <button class="login-btn">Login</button>
+    <button>Signup</button>
 {/if}
-        
 
 
-{:else}
-    <button>Back</button>
-
-    <button style="position:relative;
-        margin-top: 5rem">Login</button>
-    <button style="position:relative;
-        margin-bottom: 1rem">Signup</button>
+{#if !loading && page!=='contact'}
+    <div style="position: absolute; margin-left: 27%; bottom:0; margin-bottom:10px">
+        <button on:click={() => {
+            page="contact";
+            user=true;
+        }}>Contact Us</button>
+    </div>
 {/if}
