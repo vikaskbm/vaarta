@@ -1,30 +1,35 @@
 <script lang="ts">
+    import Search from "./Search.svelte";
     let loading = false;
     let user = true;
-    let page = "chat";
+    let page = "list";
 </script>
 
 {#if loading } 
-    <div>loading...</div>
+    <div>Loading...</div>
 {:else if user}
     {#if page==='list'}
-        <!-- <Search Component> -->
+        <Search/>
+        <br>
+        <br>
+        <br>
+        <h1>hl</h1>
         <!-- <List Friends Component/> -->
-        <button>
-            go to contact
-        </button>
-    {:else if page==='chat'}
+        {:else if page==='chat'}
         <!-- <Chat Component></Chat> -->
         <div>CHat one person here</div>
-    {:else} 
+        {:else} 
         <div>Contact me here: asdsasagsd</div>
         <button class="bottom-btn">
             Back
         </button>
-    {/if}
-
+        {/if}
+        
     <button style="position:relative;
-        margin-top:450%;">Logout</button>
+    margin-top:300%;">
+        Contact Us
+    </button>
+    <button>Logout</button>
 
 {:else}
     <button style="position:relative;
