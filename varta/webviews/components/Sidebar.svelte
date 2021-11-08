@@ -31,7 +31,6 @@
             page="search";
         }}>Search Friends</button>
         <br>
-        <br>
         <Friends/>
     {:else if page==='search'}
         <Search/>
