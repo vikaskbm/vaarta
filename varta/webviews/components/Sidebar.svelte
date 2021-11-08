@@ -4,7 +4,7 @@
     import Chat from "./Chat.svelte";
     let loading = false;
     let user = true;
-    let page = "chat";
+    let page = "search";
 </script>
 
 <style>
@@ -29,8 +29,9 @@
     {#if page==='home'}
         <button on:click={() => {
             page="search";
-        }}>Search Button</button>
-        <hr>
+        }}>Search Friends</button>
+        <br>
+        <br>
         <Friends/>
     {:else if page==='search'}
         <Search/>
