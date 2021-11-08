@@ -1,7 +1,5 @@
 <script lang="ts">
-    // let convo: Array<{text: string, user: number}> = [];
-    // todos = [{"hello", true, 1}, {"abc", true, 2}]
-    let friends = [1, 2, 3, 4, 5];
+
 </script>
  
 <style>
@@ -35,14 +33,13 @@
         color:#7e818a;
     }
 
-
     main{
         max-width:100%;
         padding-left:0;
         padding: none;
         list-style-type:none;
         overflow-y:scroll;
-        height:300px;
+        height:330px;
     }
 
     .status{
@@ -61,24 +58,12 @@
         margin-left:7px;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     #chat{
         width: 100%;
         padding-left:0;
         margin:0;
         list-style-type:none; 
-        height:300px;
+        height:330px;
         border-top:2px solid #fff;
         border-bottom:2px solid #fff;
     }
