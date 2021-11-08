@@ -4,7 +4,7 @@
     import Chat from "./Chat.svelte";
     let loading = false;
     let user = true;
-    let page = "search";
+    let page = "chat";
 </script>
 
 <style>
