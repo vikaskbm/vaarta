@@ -1,5 +1,25 @@
 <script lang="ts">
-
+    let friend: {name: string, username: string, img_url: string} = {
+        name: "Vikas Bishnoi", 
+        username:"vikaskbm", 
+        img_url: 'https://avatars.githubusercontent.com/u/43449508?v=4'
+    };
+    let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
+        {
+            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
+            name: "Vikas", 
+            author: "vikaskbm", 
+            time: "10:30AM", 
+            date: "Today"
+        }, 
+        {
+            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
+            name: "Sam", 
+            author: "sambob", 
+            time: "10:30AM", 
+            date: "Today"
+        }, 
+    ];
 </script>
  
 <style>
@@ -14,7 +34,10 @@
     header img:first-child{
         border-radius:50%;
         margin-top: 5%;
+        max-width: 50px;
+        height: 50px;
     }
+ 
     header img:last-child{
         width:24px;
         /* margin-top:8px; */
@@ -128,36 +151,29 @@
 </style>
 
 <header>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+    <img src="{friend.img_url}" alt="">
     <div>
-        <h2>Chat with Vikas Bishnoi</h2>
-        <h5>already 1000 messages</h5>
+        <h2>Chat with {friend.name}</h2>
+        <h5>{conversation.length} messages</h5>
     </div>
 </header>
 
 <main>
 
     <ul id="chat">
-        <li class="you">
-            <div class="entete">
-                <span class="status green"></span>
-                <h2>Vikas</h2>
-                <h3>10:12AM, Today</h3>
-            </div>
-            <div class="message">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-        </li>
-        <li class="me">
-            <div class="entete">
-                <h3>10:12AM, Today</h3>
-                <h2>Vikas</h2>
-                <span class="status blue"></span>
-            </div>
-            <div class="message">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-            </div>
-        </li>
+        {#each conversation as message}
+            <li class={message.author === friend.username ? "you" : "me"}>
+                <div class="entete">
+                    <span class="status {message.author === friend.username ? "green" : "blue"}"></span>
+                    <h2>{message.name}</h2>
+                    <h3>{message.time}, {message.date}</h3>
+                </div>
+                <div class="message">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                </div>
+            </li>
+        {/each}
+
     </ul>
 </main>
 
