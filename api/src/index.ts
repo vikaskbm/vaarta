@@ -4,6 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 import userRoute from "./router/users";
+import authRoute from "./router/auth";
 
 require("dotenv").config();
 
@@ -27,6 +28,7 @@ const main = async () => {
     })
 
     app.use("/api/users/", userRoute)
+    app.use("/api/auth/", authRoute)
 
     app.listen(8800, ()=> {
         console.log("Backend running");
