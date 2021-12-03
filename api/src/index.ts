@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import helmet from "helmet";
 
-const userRoute = require('./router/users');
+import userRoute from "./router/users";
+
 require("dotenv").config();
 
 const main = async () => {
@@ -24,6 +25,9 @@ const main = async () => {
     app.get("/", (req, res)=> {
         res.send("Hello there")
     })
+
+    app.use("/api/users/", userRoute)
+
     app.listen(8800, ()=> {
         console.log("Backend running");
     })
