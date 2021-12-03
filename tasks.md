@@ -1,6 +1,6 @@
 1. setup frontend                       --- DONE
 2. develop frontend components
-    i.   UI and shortcuts
+    i.   UI and shortcuts - DONE
     ii.  Sidebar 
     iii. Pages/Components
             |-> Home (Login/Register)
