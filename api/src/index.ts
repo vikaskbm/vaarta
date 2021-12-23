@@ -14,7 +14,7 @@ const main = async () => {
     mongoose.connect(
         process.env.MONGO_URL,
         () => {
-          console.log("Connected to MoczxcxzngoDB");
+          console.log("Connected to MongoDB");
         }
     );
     
@@ -23,12 +23,12 @@ const main = async () => {
     app.use(helmet());
     app.use(morgan("common"));
 
-    app.get("/", (req, res)=> {
+    app.use("/api/user", userRoute);
+    app.use("/api/auth", authRoute)
+
+    app.get("/", (_, res)=> {
         res.send("Hello there")
     })
-
-    app.use("/api/users/", userRoute)
-    app.use("/api/auth/", authRoute)
 
     app.listen(8800, ()=> {
         console.log("Backend running");
