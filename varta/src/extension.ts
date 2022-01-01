@@ -5,6 +5,7 @@ import { TokenManager } from './TokenManager';
 
 export function activate(context: vscode.ExtensionContext) {
 	TokenManager.globalState = context.globalState
+	
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
 
 	context.subscriptions.push(
@@ -16,7 +17,8 @@ export function activate(context: vscode.ExtensionContext) {
   
 	context.subscriptions.push(
 		vscode.commands.registerCommand('varta.helloWorld', () => {
-			vscode.window.showInformationMessage('Hello World from varta!');
+			vscode.window.showInformationMessage('token value is: ' + TokenManager.getToken())
+			// vscode.window.showInformationMessage('Hello World from varta!');
 		})
 	);
 

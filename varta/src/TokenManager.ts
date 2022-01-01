@@ -8,7 +8,7 @@ export class TokenManager {
         return this.globalState.update(KEY, token)
     }
 
-    static getToken(token: string) {
+    static getToken(): string|undefined {
         return this.globalState.get(KEY)
     }
 }
