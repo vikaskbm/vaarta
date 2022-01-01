@@ -74,7 +74,7 @@ const main = async() => {
   app.get('/auth/github/callback', 
     passport.authenticate('github', {session: false}),
     function(req, res) {
-      res.send(req.user)
+      res.redirect(`http://localhost:54321/auth/${req.user.accessToken}`)
     }); 
   // app.use("/api/auth", authRoute);
   // app.use("/api/users", userRoute);
