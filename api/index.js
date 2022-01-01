@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const passport = require("passport");
 const GitHubStrategy = require('passport-github').Strategy;
 const jwt = require('jsonwebtoken')
+const cors = require('cors')
 
 const User = require('./models/User')
 const userRoute = require("./routes/users");
@@ -35,6 +36,7 @@ const main = async() => {
   app.use(helmet());
   app.use(morgan("common"));
   app.use(passport.initialize());
+  app.use(cors({origin: '*'}))
 
   // passport strategy
   passport.use(new GitHubStrategy({
@@ -62,7 +64,7 @@ const main = async() => {
         let result = await user.save();
         console.log(3, result)
       }
-      cb(null, {accessToken: jwt.sign({userId: user.id}, process.env.JWT_PRIVATE_KEY, {
+      cb(null, {accessToken: jwt.sign({userId: user.id}, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "1y"
       })})
     }
@@ -75,9 +77,9 @@ const main = async() => {
     passport.authenticate('github', {session: false}),
     function(req, res) {
       res.redirect(`http://localhost:54321/auth/${req.user.accessToken}`)
-    }); 
-  // app.use("/api/auth", authRoute);
-  // app.use("/api/users", userRoute);
+    });
+
+  app.use("/api/users", userRoute);
 
   app.listen(8100, () => {
     console.log("Backend server is running!" + 8100);
