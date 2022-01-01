@@ -2,6 +2,7 @@
     import Search from "./Search.svelte";
     import Friends from "./Friends.svelte";
     import Chat from "./Chat.svelte";
+
     let loading = false;
     let user = true;
     let page = "chat";
