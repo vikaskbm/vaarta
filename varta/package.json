@@ -12,6 +12,7 @@
 	"activationEvents": [
 		"onView:varta-sidebar",
 		"onCommand:varta.helloWorld",
+		"onCommand:varta.authenticate",
 		"onCommand:varta.refresh"
 	],
 	"main": "./dist/extension.js",
@@ -45,6 +46,11 @@
 				"command": "varta.refresh",
 				"category": "Varta",
 				"title": "Refresh VS Code"
+			},
+			{
+				"command": "varta.authenticate",
+				"category": "Varta",
+				"title": "Authenticate"
 			}
 		]
 	},

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { authenticate } from './authenticate';
 import { SidebarProvider } from './SidebarProvider';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -17,6 +18,12 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('varta.helloWorld', () => {
 			vscode.window.showInformationMessage('Hello World from varta!');
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('varta.authenticate', () => {
+			authenticate();
 		})
 	);
 
