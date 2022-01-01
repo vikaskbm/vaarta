@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
 import { authenticate } from './authenticate';
 import { SidebarProvider } from './SidebarProvider';
+import { TokenManager } from './TokenManager';
 
 export function activate(context: vscode.ExtensionContext) {
-	
-	console.log('Congratulations, your extension "varta" is now active!');
-
+	TokenManager.globalState = context.globalState
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
 
 	context.subscriptions.push(
