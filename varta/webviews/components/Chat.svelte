@@ -50,12 +50,6 @@
         font-size:16px;
         margin-bottom:15px;
     }
-    header h3{
-        font-size:14px;
-        font-weight:normal;
-        color:#7e818a;
-    }
-
     main{
         max-width:100%;
         padding-left:0;
@@ -181,5 +175,5 @@
     <textarea placeholder="Type your message"></textarea>
     <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt=""> -->
     <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt=""> -->
-    <a href="#">Send</a>
+    <a href="/">Send</a>
 </footer>
