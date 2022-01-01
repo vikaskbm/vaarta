@@ -4,7 +4,8 @@ const UserSchema = new mongoose.Schema({
         githubId: { type: String , unique : true },
         name: String,
         username: String,
-        avatar: String
+        avatar: String,
+        plant: String,
     }
 );
 

@@ -23,6 +23,7 @@ const main = async() => {
     }
   );
 
+
   // passport serialize
   passport.serializeUser(function(user, done) {
     done(null, user.accessToken);
@@ -43,23 +44,26 @@ const main = async() => {
     },
 
     async function(_, __, profile, cb) {
-      console.log(profile);
-      let user = await User.find({ githubId: profile.id }).exec();
-      if(user) {
-        user.name = profile.displayName
-        await user.save()
-      } else {
-        user = new User({
-          githubId: profile.id,
-          name: profile.displayName,
-          username: profile.username,
-          avatar: profile.avatar_url
-        }) 
-        await user.save();
-      }
+      console.log(profile._json.avatar_url);
+      let user = await User.findOne({ githubId: profile.id })
+      console.log(1, user)
+      // let user = new User({
+      //   githubId: profile.id,
+      //   name: profile.displayName,
+      //   username: profile.username,
+      //   avatar: profile._json.avatar_url,
+      // })
+      // await user.save().catch(err => console.log(err.message));
+      // if(user) {
+      //   console.log(2, user)
+      //   user.name = profile.displayName
+      //   await user.save()
+      // } else {
+      //   }) 
+      // }
       cb(null, {accessToken: jwt.sign({userId: user.id}, process.env.JWT_PRIVATE_KEY, {
         expiresIn: "1y"
-      }), refreshToken: ''})
+      })})
     }
   ));
 
@@ -69,13 +73,13 @@ const main = async() => {
   app.get('/auth/github/callback', 
     passport.authenticate('github', {session: false}),
     function(req, res) {
-      res.send("You logged in correctly")
+      res.send(req.user)
     }); 
   // app.use("/api/auth", authRoute);
   // app.use("/api/users", userRoute);
 
   app.listen(8100, () => {
-    console.log("Backend server is running!");
+    console.log("Backend server is running!" + 8100);
   });
 }
 
