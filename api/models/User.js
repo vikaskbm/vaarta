@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema(
-    {
-        id: Number,
+const UserSchema = new mongoose.Schema({
         githubId: { type: String , unique : true },
+        name: String,
         username: String,
-        name: String
+        avatar: String
     }
 );
 
