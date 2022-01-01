@@ -47,20 +47,21 @@ const main = async() => {
       console.log(profile._json.avatar_url);
       let user = await User.findOne({ githubId: profile.id })
       console.log(1, user)
-      // let user = new User({
-      //   githubId: profile.id,
-      //   name: profile.displayName,
-      //   username: profile.username,
-      //   avatar: profile._json.avatar_url,
-      // })
-      // await user.save().catch(err => console.log(err.message));
-      // if(user) {
-      //   console.log(2, user)
-      //   user.name = profile.displayName
-      //   await user.save()
-      // } else {
-      //   }) 
-      // }
+
+      if(user) {
+        console.log(2, user)
+        await user.save()
+      } else {
+        user = new User({
+          githubId: profile.id,
+          name: profile.displayName,
+          username: profile.username,
+          avatar: profile._json.avatar_url,
+        })
+        console.log(2, user)
+        let result = await user.save();
+        console.log(3, result)
+      }
       cb(null, {accessToken: jwt.sign({userId: user.id}, process.env.JWT_PRIVATE_KEY, {
         expiresIn: "1y"
       })})
