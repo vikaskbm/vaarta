@@ -22,6 +22,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
+        case "get-token": {
+          webviewView.webview.postMessage({type: 'token', value: TokenManager.getToken()})
+          break;
+        }
         case "onInfo": {
           if (!data.value) {
             return;
