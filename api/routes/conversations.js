@@ -15,4 +15,16 @@ router.post("/", async (req, res) => {
         res.send('Something went wrong')
     }
 })
+// get conversation
+router.get("/:userId", async (req, res) => {
+    try {
+        const conversations = await Conversation.find({
+            members: { $in: [req.params.userId]}
+        });
+        console.log(conversations)
+        res.status(200).json(conversations)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 module.exports = router
