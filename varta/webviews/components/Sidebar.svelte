@@ -76,7 +76,11 @@
         }}>Logout</button>
     </div>
 {:else}
-    <button class="login-btn">Github-Login</button>
+    <button 
+        class="login-btn"
+        on:click={() => {
+            tsvscode.postMessage({type: "authenticate", value: undefined})
+        }}>Login with Github</button>
 {/if}
 
 

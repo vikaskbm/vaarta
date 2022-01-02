@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import {apiBaseUrl} from "./constants";
 import { TokenManager } from "./TokenManager";
+import { authenticate } from "./authenticate";
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
   _doc?: vscode.TextDocument;
@@ -24,6 +25,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       switch (data.type) {
         case "get-token": {
           webviewView.webview.postMessage({type: 'token', value: TokenManager.getToken()})
+          break;
+        }
+        case "authenticate": {
+          authenticate();
           break;
         }
         case "onInfo": {
