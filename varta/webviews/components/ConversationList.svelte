@@ -88,7 +88,7 @@ aside li h3{
     {#each conversationList as conversation}
         <ul>
             <li>
-                <Conversation {conversation} currentUser={user}/>
+                <Conversation {conversation} currentUser={user} {accessToken}/>
             </li>
         </ul>
     {/each}

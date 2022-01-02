@@ -1,9 +1,29 @@
 <script lang="ts">
     import type { User } from "../types";
+    import { onMount } from 'svelte';
     
     export let currentUser: User;
-    // export let friendId: User;
-    export let conversation: any;
+    export let conversation: {members: []} | null = null;
+    
+    export let accessToken: string;
+    
+    let user: User;
+
+    onMount(async () => { 
+        const friendId = conversation?.members.find((m) => m !== currentUser._id)
+        
+        const getUser = async() => {
+            const res = await fetch(`${apiBaseUrl}/api/users/`, {
+                headers: {
+                    authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            const payload = await res.json();
+            console.log(payload)
+            user = payload.data
+        }
+    });
 </script>
 
   
@@ -62,11 +82,11 @@ aside li h3{
 }
 </style>
 
-<img src="{conversation}" alt="">
+<img src="" alt="">
 <div>
-    <h2>{conversation}</h2>
+    <!-- <h2>{conversation}</h2> -->
     <h3>
         <span class="status orange"></span>
-        {conversation}
+        <!-- {conversation} -->
     </h3>
 </div>
