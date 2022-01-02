@@ -24,6 +24,7 @@
 
                     const payload = await response.json()
                     user = payload.user
+                    console.log("payload", payload)
                     console.log("user", user)
                     loading = false
             }

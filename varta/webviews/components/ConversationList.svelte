@@ -15,13 +15,14 @@
                     break;
             }
         });
-        const response = await fetch(`${apiBaseUrl}/api/conversations`, {
+        const response = await fetch(`${apiBaseUrl}/api/conversations/${user._id}`, {
             headers: {
                 authorization: `Bearer ${accessToken}`,
             },
         });
         const payload = await response.json();
-        conversationList = payload.conversationList;
+        console.log(payload)
+        // conversationList = payload.conversationList;
     });
 </script>
 
