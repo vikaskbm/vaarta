@@ -1,8 +1,9 @@
 <script lang="ts">
     import type { User } from "../types";
     
-    export let user: User;
-    let conversation = {};
+    export let currentUser: User;
+    // export let friendId: User;
+    export let conversation: any;
 </script>
 
   
@@ -61,11 +62,11 @@ aside li h3{
 }
 </style>
 
-<!-- <img src="{conversation.avatar}" alt="">
+<img src="{conversation}" alt="">
 <div>
-    <h2>{conversation.name}</h2>
+    <h2>{conversation}</h2>
     <h3>
         <span class="status orange"></span>
-        {conversation.username}
+        {conversation}
     </h3>
-</div> -->
+</div>

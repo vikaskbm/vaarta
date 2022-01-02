@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Conversation from "./Conversation.svelte";
     import { onMount } from 'svelte';
     import type { User } from "../types";
     
@@ -22,7 +23,7 @@
         });
         const payload = await response.json();
         console.log(payload)
-        // conversationList = payload.conversationList;
+        conversationList = payload;
     });
 </script>
 
@@ -87,7 +88,7 @@ aside li h3{
     {#each conversationList as conversation}
         <ul>
             <li>
-                <!-- <Conversation /> -->
+                <Conversation {conversation} currentUser={user}/>
             </li>
         </ul>
     {/each}
