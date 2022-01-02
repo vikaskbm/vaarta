@@ -3,7 +3,7 @@ import * as polka from "polka";
 import { apiBaseUrl } from './constants';
 import { TokenManager } from './TokenManager';
 
-export const authenticate = () => {
+export const authenticate = (fun: () => void) => {
     const app = polka()
     
     app.get('/auth/:token', async (req, res) => {
@@ -12,8 +12,9 @@ export const authenticate = () => {
             res.end(`<h1>Something went wrong</h1>`)
         }
         console.log(token)
-
+        
         await TokenManager.setToken(token)
+        fun()
 
         res.end(`<h1>Auth successful. Close this window</h1>`)
 
