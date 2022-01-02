@@ -3,10 +3,11 @@
     import Search from "./Search.svelte";
     import Friends from "./Friends.svelte";
     import Chat from "./Chat.svelte";
+    import type { User } from '../types';
 
     const accessToken: string = '';
     let loading = false;
-    let user: { githubId: string; name: string; username: string; avatar: string; } | null = null;
+    let user: User | null = null;
     let page = "chat"; 
 
     onMount(async () => {
@@ -49,7 +50,6 @@
 {#if loading } 
     <div>Loading...</div>
 {:else if user}
-    <pre>{user}</pre>
     {#if page==='home'}
         <button on:click={() => {
             page="search";
@@ -57,11 +57,12 @@
         <br>
         <Friends/>
     {:else if page==='search'}
+        <h6>Click to send request...</h6>
         <Search/>
     {:else if page==='chat'}
         <h3 style="text-align: center;">FRIEND</h3>
         <hr>
-        <Chat />
+        <Chat user={user}/>
     {:else}
         <h1>This is contact component</h1>
         <!-- Contact Component -->
@@ -75,10 +76,7 @@
         }}>Logout</button>
     </div>
 {:else}
-    <pre>{user}</pre>
-
-    <button class="login-btn">Login</button>
-    <button>Signup</button>
+    <button class="login-btn">Github-Login</button>
 {/if}
 
 

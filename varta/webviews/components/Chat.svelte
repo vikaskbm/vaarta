@@ -1,8 +1,12 @@
 <script lang="ts">
-    let friend: {name: string, username: string, img_url: string} = {
+    import type { User } from "../types";
+
+    export let user: User;
+    let friend: User | null = {
+        githubId: "asdas",
         name: "Vikas Bishnoi", 
         username:"vikaskbm", 
-        img_url: 'https://avatars.githubusercontent.com/u/43449508?v=4'
+        avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
     };
     let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
         {
@@ -145,9 +149,9 @@
 </style>
 
 <header>
-    <img src="{friend.img_url}" alt="">
+    <img src="{friend?.avatar}" alt="">
     <div>
-        <h2>Chat with {friend.name}</h2>
+        <h2>Chat with {friend?.name}</h2>
         <h5>{conversation.length} messages</h5>
     </div>
 </header>
@@ -156,9 +160,9 @@
 
     <ul id="chat">
         {#each conversation as message}
-            <li class={message.author === friend.username ? "you" : "me"}>
+            <li class={message.author === friend?.username ? "you" : "me"}>
                 <div class="entete">
-                    <span class="status {message.author === friend.username ? "green" : "blue"}"></span>
+                    <span class="status {message.author === friend?.username ? "green" : "blue"}"></span>
                     <h2>{message.name}</h2>
                     <h3>{message.time}, {message.date}</h3>
                 </div>
