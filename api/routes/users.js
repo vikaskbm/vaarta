@@ -23,7 +23,7 @@ router.get("/me", async (req, res) => {
 
     let userId = "";
     try {
-        const payload = jwt.verify(token, '')
+        const payload = jwt.verify(token, 'fskajhfkjasbfa87uasjk')
         userId = payload.userId
     } catch(err) {
         console.log(err.message)
@@ -35,8 +35,23 @@ router.get("/me", async (req, res) => {
         return
     }
     const user = await User.findById(userId)
-    console.log(user)
     res.send({user})
 })
+
+// get a friend user
+router.get("/", async (req, res) => {
+    const userId = req.query.userId;
+    const username = req.query.username;
+    console.log(userId, userName)
+    try {
+      const user = userId
+        ? await User.findById(userId)
+        : await User.findOne({ username: username });
+      const { updatedAt, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+});
 
 module.exports = router
