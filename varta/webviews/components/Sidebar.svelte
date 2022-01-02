@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import Search from "./Search.svelte";
-    import Friends from "./Friends.svelte";
+    import ConversationList from "./ConversationList.svelte";
     import Chat from "./Chat.svelte";
     import type { User } from '../types';
 
@@ -51,11 +51,11 @@
     <div>Loading...</div>
 {:else if user}
     {#if page==='home'}
-        <button on:click={() => {
+        <!-- <button on:click={() => {
             page="search";
-        }}>Search Friends</button>
-        <br>
-        <Friends/>
+        }}>Search People...</button>
+        <br> -->
+        <ConversationList user={user}/>
     {:else if page==='search'}
         <h6>Click to send request...</h6>
         <Search/>
