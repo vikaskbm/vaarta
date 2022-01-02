@@ -5,7 +5,7 @@
     import Chat from "./Chat.svelte";
     import type { User } from '../types';
 
-    const accessToken: string = '';
+    let accessToken: string = '';
     let loading = false;
     let user: User | null = null;
     let page = "chat"; 
@@ -72,7 +72,10 @@
     {/if}
     <div style="position: absolute; margin-left: 33%; bottom:0; margin-bottom:40px">
         <button on:click={() => {
-            page="chat";
+            accessToken = ''
+            user = null
+            page="chat"
+            tsvscode.postMessage({type: "logout", value: undefined})
         }}>Logout</button>
     </div>
 {:else}
