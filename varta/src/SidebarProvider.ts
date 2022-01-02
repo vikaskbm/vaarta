@@ -24,20 +24,23 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
         case "get-token": {
-          webviewView.webview.postMessage({type: 'token', value: TokenManager.getToken()})
+          webviewView.webview.postMessage({
+            type: "token",
+            value: TokenManager.getToken(),
+          });
           break;
         }
         case "authenticate": {
           authenticate(() => {
             webviewView.webview.postMessage({
-              type:"token",
-              value: TokenManager.getToken()
-            })
+              type: "token",
+              value: TokenManager.getToken(),
+            });
           });
           break;
         }
         case "logout": {
-          TokenManager.setToken('');
+          TokenManager.setToken("");
           break;
         }
         case "onInfo": {
@@ -98,7 +101,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         <script nonce="${nonce}">
           const tsvscode = acquireVsCodeApi();
           const apiBaseUrl = ${JSON.stringify(apiBaseUrl)};
-          const accessToken = ${JSON.stringify(TokenManager.getToken())};
         </script>
     </head>
     <body>

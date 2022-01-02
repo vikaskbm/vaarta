@@ -1,8 +1,28 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import type { User } from "../types";
     
+    export let accessToken: string;
+    
     export let user: User;
-    let conversationList: Array<User>;
+    let conversationList: Array<{members: []}> = [];
+
+    onMount(async () => {
+        window.addEventListener("message", async (event) => {
+            const message = event.data;
+            switch (message.type) {
+                case "new-conversation":
+                    break;
+            }
+        });
+        const response = await fetch(`${apiBaseUrl}/api/conversations`, {
+            headers: {
+                authorization: `Bearer ${accessToken}`,
+            },
+        });
+        const payload = await response.json();
+        conversationList = payload.conversationList;
+    });
 </script>
 
   
@@ -62,10 +82,11 @@ aside li h3{
 </style>
   
 <aside>
+    <h3>{user}</h3>
     {#each conversationList as conversation}
         <ul>
             <li>
-                conversation
+                <!-- <Conversation /> -->
             </li>
         </ul>
     {/each}

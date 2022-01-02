@@ -14,8 +14,7 @@ export const authenticate = (fun: () => void) => {
         console.log(token)
         
         await TokenManager.setToken(token)
-        fun()
-
+        fun();
         res.end(`<h1>Auth successful. Close this window</h1>`)
 
         app.server?.close()

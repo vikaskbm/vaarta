@@ -8,21 +8,23 @@
     let accessToken: string = '';
     let loading = false;
     let user: User | null = null;
-    let page = "chat"; 
+    let page:string = "home"; 
 
     onMount(async () => {
         window.addEventListener("message", async(event) => {
             const message = event.data;
             switch(message.type) {
                 case 'token':
-                    const token = message.value
+                    accessToken = message.value
                     const response = await fetch(`${apiBaseUrl}/api/users/me`, {
                         headers: {
                             authorization: `Bearer ${accessToken}`
                         }
                     })
-                    const data = await response.json()
-                    user = data.user
+
+                    const payload = await response.json()
+                    user = payload.user
+                    console.log("user", user)
                     loading = false
             }
         })
@@ -42,20 +44,21 @@
     <div style="display: flex;">
         <button style="background:transparent" on:click={() => {
             page="home";
-        }}>Hello, {user} </button>
+        }}>Hello, {user?.name} - {page} </button>
     </div>
     <hr>
 {/if}
 
 {#if loading } 
-    <div>Loading...</div>
+<div>Loading...</div>
 {:else if user}
-    {#if page==='home'}
+    {#if page=='home'}
+        <h1>HI</h1>
         <!-- <button on:click={() => {
             page="search";
         }}>Search People...</button>
         <br> -->
-        <ConversationList user={user}/>
+        <ConversationList {user} {accessToken}/>
     {:else if page==='search'}
         <h6>Click to send request...</h6>
         <Search/>
