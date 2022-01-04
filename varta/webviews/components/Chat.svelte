@@ -7,8 +7,11 @@
 	import { conversation } from './stores.js';
 	import { friendList } from './stores.js';
     
+
     export let user: User;
-    let messages;
+    export let accessToken: string = '';
+    
+    let messages: [];
     let friend: User | null = {
         _id:"tempid",
         githubId: "asdas",
@@ -40,8 +43,23 @@
         conversation.subscribe((value:any) => {
             conversation_value = value;
         });
+
+        const getMessages = async(conversationId: any) => {
+            const res = await fetch(`${apiBaseUrl}/api/messages/${conversationId}`, {
+                headers: { 
+                    authorization: `Bearer ${accessToken}`,
+                },
+            });
+            
+            const payload = await res.json();
+            console.log(payload)
+            messages = payload
+        }
+
+        const conversationId = conversation?._id;
+        getMessages(conversationId);
     });
-</script>
+</script>1
  
 <style>
     header {

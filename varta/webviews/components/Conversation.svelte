@@ -22,11 +22,11 @@
 
         if (conversation?.members && conversation?.members?.length > 2) {
             user = { 
-                _id: '1',
+                _id: currentUser._id,
                 githubId:' 1',
                 name: `${"temp"}`,
-                username: '1',
-                avatar: '1'
+                username: currentUser.username,
+                avatar: './../static/group_icon.png'
             };
 
         } else {

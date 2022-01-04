@@ -67,7 +67,7 @@
     {:else if page_value==='chat'}
         <h3 style="text-align: center;">FRIEND</h3>
         <hr>
-        <Chat user={user}/>
+        <Chat {user} {accessToken}/>
     {:else}
         <h1>This is contact component</h1>
         <!-- Contact Component -->
