@@ -45,16 +45,15 @@
     }
 </style>
 
-<div style="display: flex;">
-    <button style="background:transparent" on:click={() => {
-        page.update((input) => "home")
-    }}> {user?.name} </button>
-</div>
-<hr>
-
 {#if loading } 
-<div>Loading...</div>
+    <div>Loading...</div>
 {:else if user}
+    <div style="display: flex;">
+        <button style="background:transparent" on:click={() => {
+            page.update((input) => "home")
+        }}> Home </button>
+    </div>
+    <hr>
     {#if page_value=='home'}
         <button on:click={() => {
             page.update((input) => "search")

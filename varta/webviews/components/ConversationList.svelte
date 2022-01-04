@@ -86,7 +86,6 @@ aside li h3{
 </style>
   
 <aside>
-    <h3>{user.name}</h3>
     <ul>
         {#each conversationList as conv}
             <li on:click={() => {

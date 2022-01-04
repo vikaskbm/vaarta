@@ -12,7 +12,7 @@
     export let user: User;
     export let accessToken: string = '';
     
-    let messages: [];
+    let messages: []=[];
     let friend: User | null = {
         _id:"tempid",
         githubId: "asdas",
@@ -53,7 +53,6 @@
             });
             
             const payload = await res.json();
-            console.log(payload)
             messages = payload
         }
 
@@ -208,9 +207,9 @@
 
      {#if conversation_value }
         <div class="chatBoxTop">
-            {#each messages as m}
+            {#each messages as msg}
                 <div>
-                    <Message message={m} user={user} />
+                    <Message message={msg} user={user} />
                 </div>
             {/each}
         </div>

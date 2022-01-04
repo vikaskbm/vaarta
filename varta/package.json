@@ -97,6 +97,7 @@
 		"webpack-cli": "^4.8.0"
 	},
 	"dependencies": {
-		"polka": "^0.5.2"
+		"polka": "^0.5.2",
+		"timeago.js": "^4.0.0-beta.3"
 	}
 }
