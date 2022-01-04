@@ -3,12 +3,9 @@
     import { onMount } from 'svelte';
     import type { User } from "../types";
 
-	import { page } from './stores.js';
-	import { conversation } from './stores.js';
-    
     export let accessToken: string;
-    
     export let user: User;
+    
     let conversationList: Array<{members: []}> = [];
 
     onMount(async () => {
@@ -88,11 +85,8 @@ aside li h3{
 <aside>
     <ul>
         {#each conversationList as conv}
-            <li on:click={() => {
-                page.update((input) => "chat")
-                conversation.update(() => conv)
-            }}>
-                <Conversation conversation={conv} currentUser={user} {accessToken}/>
+            <li>
+                <Conversation {conv} currentUser={user} {accessToken}/>
             </li>
         {/each}
     </ul>

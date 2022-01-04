@@ -2,8 +2,11 @@
     import type { User } from "../types";
     import { onMount } from 'svelte';
     
+    import { page } from './stores.js';
+	import { conversation } from './stores.js';
+
     export let currentUser: User;
-    export let conversation: {members: []} | null = {members:[]};
+    export let conv: {members: []} | null = {members:[]};
     export let accessToken: string;
     
     let user: User;
@@ -20,7 +23,7 @@
             user = payload
         }
 
-        if (conversation?.members && conversation?.members?.length > 2) {
+        if (conv?.members && conv?.members?.length > 2) {
             user = { 
                 _id: currentUser._id,
                 githubId:' 1',
@@ -30,7 +33,7 @@
             };
 
         } else {
-            const friendId = conversation?.members.find((m) => m !== currentUser._id)
+            const friendId = conv?.members.find((m) => m !== currentUser._id)
             getUser(friendId);
         }
     });
@@ -60,7 +63,10 @@
 
 </style>
 
-<div class="conversation">
+<div class="conversation" on:click={() => {
+    page.update((input) => "chat")
+    conversation.update(() => conv)
+}}>
     <img
         class="conversationImg"
         src={ user?.avatar }

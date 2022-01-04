@@ -3,6 +3,9 @@
 
     export let message: any;
     export let user: any;
+    
+
+    console.log(message?.sender)
 </script>
 
 <style>
@@ -51,7 +54,7 @@
     <div class="messageTop">
         <img
         class="messageImg"
-        src="https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+        src={message?.sender === user._id ? user?.avatar : message?.sender?.avatar}
         alt=""
         />
         <p class="messageText">{message.text}</p>

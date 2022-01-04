@@ -3,10 +3,7 @@
     import Message from './Message.svelte';
 
     import type { User } from "../types";
-
-	import { page } from './stores.js';
 	import { conversation } from './stores.js';
-	import { friendList } from './stores.js';
     
 
     export let user: User;
@@ -21,6 +18,7 @@
         avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
     };
 
+    let value = ``;
     let conversation_value: any;
 
         
@@ -188,23 +186,6 @@
 </header>
 
 <main>
-<!-- 
-    <ul id="chat">
-        {#each conversation as message}
-            <li class={message.author === friend?.username ? "you" : "me"}>
-                <div class="entete">
-                    <span class="status {message.author === friend?.username ? "green" : "blue"}"></span>
-                    <h2>{message.name}</h2>
-                    <h3>{message.time}, {message.date}</h3>
-                </div>
-                <div class="message">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                </div>
-            </li>
-        {/each}
-
-     </ul> -->
-
      {#if conversation_value }
         <div class="chatBoxTop">
             {#each messages as msg}
@@ -214,10 +195,10 @@
             {/each}
         </div>
         <div class="chatBoxBottom">
-            <textarea
-                class="chatMessageInput"
+            <textarea class="chatMessageInput"
                 placeholder="write something..."
-            ></textarea>
+                value={value} />
+
             <button class="chatSubmitButton">
                 Send
             </button>
