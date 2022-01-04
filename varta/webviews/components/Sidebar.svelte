@@ -54,7 +54,6 @@
 <div>Loading...</div>
 {:else if user}
     {#if page=='home'}
-        <h1>HI</h1>
         <!-- <button on:click={() => {
             page="search";
         }}>Search People...</button>

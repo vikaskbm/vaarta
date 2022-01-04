@@ -22,7 +22,7 @@
             },
         });
         const payload = await response.json();
-        console.log(payload)
+        console.log("conversation", payload)
         conversationList = payload;
     });
 </script>
@@ -84,7 +84,7 @@ aside li h3{
 </style>
   
 <aside>
-    <h3>{user}</h3>
+    <h3>{user.name}</h3>
     {#each conversationList as conversation}
         <ul>
             <li>

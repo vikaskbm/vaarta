@@ -12,6 +12,7 @@ const cors = require('cors')
 const User = require('./models/User')
 const userRoute = require("./routes/users");
 const conversationRoute = require("./routes/conversations");
+const messageRoute = require('./routes/messages')
 
 dotenv.config();
 
@@ -81,6 +82,7 @@ const main = async() => {
 
   app.use("/api/users", userRoute);
   app.use("/api/conversations", conversationRoute);
+  app.use("/api/messages", messageRoute);
 
   app.listen(8100, () => {
     console.log("Backend server is running!" + 8100);

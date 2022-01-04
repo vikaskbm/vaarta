@@ -42,7 +42,7 @@ router.get("/me", async (req, res) => {
 router.get("/", async (req, res) => {
     const userId = req.query.userId;
     const username = req.query.username;
-    console.log(userId, userName)
+    console.log(userId, username)
     try {
       const user = userId
         ? await User.findById(userId)
