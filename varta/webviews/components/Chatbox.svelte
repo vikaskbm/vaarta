@@ -56,39 +56,32 @@
             messages = payload
         }
 
-        const conversationId = conversation?._id;
+        const conversationId = conversation_value?._id;
         getMessages(conversationId);
     });
-</script>1
+</script>
  
 <style>
-    header {
-        width: 100%;
-        height: 80px;
-    }
-    header > *{
-        display:inline-block;
-    }
     
-    header img:first-child{
-        border-radius:50%;
-        margin-top: 5%;
-        max-width: 50px;
-        height: 50px;
+    .conversationBox {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
     }
- 
-    header img:last-child{
-        width:24px;
-        /* margin-top:8px; */
+
+    .conversationImg {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
     }
-    header div{
-        margin-left:10px;
-        margin-right:10px;
+
+    .conversationName {
+        font-weight: 500;
     }
-    header h2{
-        font-size:16px;
-        margin-bottom:15px;
-    }
+
     main{
         max-width:100%;
         padding-left:0;
@@ -166,7 +159,7 @@
         width:100%;
         height:80px;
         border-radius:3px;
-        padding:20px;
+        padding:2px;
         font-size:13px;
     }
     footer textarea::placeholder{
@@ -184,21 +177,20 @@
 </style>
 
 <header>
-    <img src="{friend?.avatar}" alt="">
-    <div>
-        <h2>Chat with {friend?.name}</h2>
-        <!-- <h5>{conversation.length} messages</h5> -->
+    <div class="conversationBox">
+        <img
+            class="conversationImg"
+            src={ friend?.avatar }
+            alt=""
+        />
+        <span class="conversationName">Chat with {friend?.name}</span>
     </div>
-
-    <button on:click={() => console.log(conversation_value)}>
-        VIKAS
-    </button>
 </header>
 
 <main>
-
-    <!-- <ul id="chat"> -->
-        <!-- {#each conversation as message}
+<!-- 
+    <ul id="chat">
+        {#each conversation as message}
             <li class={message.author === friend?.username ? "you" : "me"}>
                 <div class="entete">
                     <span class="status {message.author === friend?.username ? "green" : "blue"}"></span>
@@ -209,14 +201,30 @@
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 </div>
             </li>
-        {/each} -->
+        {/each}
 
-     <!-- </ul> -->
+     </ul> -->
+
+     {#if conversation_value }
+        <div class="chatBoxTop">
+            {#each messages as m}
+                <div>
+                    <!-- <Message message={m} own={m?.sender === user._id} /> -->
+                </div>
+            {/each}
+        </div>
+        <div class="chatBoxBottom">
+            <textarea
+                class="chatMessageInput"
+                placeholder="write something..."
+            ></textarea>
+            <button class="chatSubmitButton">
+                Send
+            </button>
+        </div>
+     { :else }
+        <span class="noConversationText">
+            Send a message to {friend?.name}.
+        </span>
+     {/if}
 </main>
-
-<footer>
-    <textarea placeholder="Type your message"></textarea>
-    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt=""> -->
-    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt=""> -->
-    <a href="/">Send</a>
-</footer>

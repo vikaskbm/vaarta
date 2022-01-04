@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import Search from "./Search.svelte";
     import ConversationList from "./ConversationList.svelte";
-    import Chat from "./Chat.svelte";
+    import Chatbox from "./Chatbox.svelte";
     import type { User } from '../types';
 
 	import { page } from './stores.js';
@@ -48,7 +48,7 @@
 <div style="display: flex;">
     <button style="background:transparent" on:click={() => {
         page.update((input) => "home")
-    }}> {page} </button>
+    }}> {user?.name} </button>
 </div>
 <hr>
 
@@ -65,9 +65,7 @@
         <h6>Click to send request...</h6>
         <Search/>
     {:else if page_value==='chat'}
-        <h3 style="text-align: center;">FRIEND</h3>
-        <hr>
-        <Chat {user} {accessToken}/>
+        <Chatbox {user} {accessToken}/>
     {:else}
         <h1>This is contact component</h1>
         <!-- Contact Component -->
