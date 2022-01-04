@@ -2,28 +2,31 @@
     import type { User } from "../types";
 
     export let user: User;
+    let conversation;
+    let currentChat;
     let friend: User | null = {
+        _id:"tempid",
         githubId: "asdas",
         name: "Vikas Bishnoi", 
         username:"vikaskbm", 
         avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
     };
-    let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
-        {
-            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
-            name: "Vikas", 
-            author: "vikaskbm", 
-            time: "10:30AM", 
-            date: "Today"
-        }, 
-        {
-            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
-            name: "Sam", 
-            author: "sambob", 
-            time: "10:30AM", 
-            date: "Today"
-        }, 
-    ];
+    // let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
+    //     {
+    //         text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
+    //         name: "Vikas", 
+    //         author: "vikaskbm", 
+    //         time: "10:30AM", 
+    //         date: "Today"
+    //     }, 
+    //     {
+    //         text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
+    //         name: "Sam", 
+    //         author: "sambob", 
+    //         time: "10:30AM", 
+    //         date: "Today"
+    //     }, 
+    // ];
 </script>
  
 <style>
@@ -152,14 +155,14 @@
     <img src="{friend?.avatar}" alt="">
     <div>
         <h2>Chat with {friend?.name}</h2>
-        <h5>{conversation.length} messages</h5>
+        <!-- <h5>{conversation.length} messages</h5> -->
     </div>
 </header>
 
 <main>
 
-    <ul id="chat">
-        {#each conversation as message}
+    <!-- <ul id="chat"> -->
+        <!-- {#each conversation as message}
             <li class={message.author === friend?.username ? "you" : "me"}>
                 <div class="entete">
                     <span class="status {message.author === friend?.username ? "green" : "blue"}"></span>
@@ -170,9 +173,9 @@
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 </div>
             </li>
-        {/each}
+        {/each} -->
 
-    </ul>
+     <!-- </ul> -->
 </main>
 
 <footer>

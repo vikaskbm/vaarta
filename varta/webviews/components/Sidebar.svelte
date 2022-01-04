@@ -41,24 +41,22 @@
     }
 </style>
 
-{#if page!=='chat'}
-    <div style="display: flex;">
-        <button style="background:transparent" on:click={() => {
-            page="home";
-        }}>Hello, {user?.name} - {page} </button>
-    </div>
-    <hr>
-{/if}
+<div style="display: flex;">
+    <button style="background:transparent" on:click={() => {
+        page="home";
+    }}> {page} </button>
+</div>
+<hr>
 
 {#if loading } 
 <div>Loading...</div>
 {:else if user}
     {#if page=='home'}
-        <!-- <button on:click={() => {
+        <button on:click={() => {
             page="search";
         }}>Search People...</button>
-        <br> -->
-        <ConversationList {user} {accessToken}/>
+        <br>
+        <ConversationList {user} {accessToken} {page}/>
     {:else if page==='search'}
         <h6>Click to send request...</h6>
         <Search/>

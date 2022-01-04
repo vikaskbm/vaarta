@@ -6,6 +6,7 @@
     export let accessToken: string;
     
     export let user: User;
+    export let page:string; 
     let conversationList: Array<{members: []}> = [];
 
     onMount(async () => {
@@ -85,13 +86,17 @@ aside li h3{
   
 <aside>
     <h3>{user.name}</h3>
-    {#each conversationList as conversation}
-        <ul>
-            <li>
+    <ul>
+        {#each conversationList as conversation}
+            <li on:click={() => {
+                page = "chat"
+                console.log("HI")
+                console.log(page)
+            }}>
                 <Conversation {conversation} currentUser={user} {accessToken}/>
             </li>
-        </ul>
-    {/each}
+        {/each}
+    </ul>
 </aside>
   
   

@@ -4,89 +4,59 @@
     
     export let currentUser: User;
     export let conversation: {members: []} | null = null;
-    
     export let accessToken: string;
     
     let user: User;
 
     onMount(async () => { 
         const friendId = conversation?.members.find((m) => m !== currentUser._id)
-        
+        console.log("me", currentUser._id)
+        console.log("friend", friendId)
         const getUser = async() => {
-            const res = await fetch(`${apiBaseUrl}/api/users/`, {
-                headers: {
+            const res = await fetch(`${apiBaseUrl}/api/users?userId=${friendId}`, {
+                headers: { 
                     authorization: `Bearer ${accessToken}`,
                 },
             });
 
             const payload = await res.json();
-            console.log(payload)
-            user = payload.data
+            user = payload
         }
+        getUser();
     });
 </script>
-
-  
   
 <style>
-aside{
-    width:250px;
-    height:10px;
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
-}
-aside ul{
-    width:104%;
-    padding-left:0;
-    padding: none;
-    list-style-type:none;
-    overflow-y:scroll;
-    height:400px;
-}
-    aside li:hover{
-    background-color:#5e616a;
-}
-h2,h3{
-    margin:0;
-}
-aside li img{
-    max-width: 50px;
-    height: 50px;
-    border-radius:50%;
-    margin-left:20px;
-    margin-right:8px;
-}
-aside li div{
-    display:inline-block;
-    vertical-align:top;
-    margin-top:12px;
-}
-aside li h2{
-    font-size:14px;
-    color:#fff;
-    font-weight:normal;
-    margin-bottom:5px;
-}
-aside li h3{
-    font-size:12px;
-    color:#7e818a;
-    font-weight:normal;
+
+.conversation {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.status{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    display:inline-block;
+.conversationImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
 }
+
+.conversationName {
+  font-weight: 500;
+}
+
 </style>
 
-<img src="" alt="">
-<div>
-    <!-- <h2>{conversation}</h2> -->
-    <h3>
-        <span class="status orange"></span>
-        <!-- {conversation} -->
-    </h3>
+<div class="conversation">
+    <img
+        class="conversationImg"
+        src={ user?.avatar }
+        alt=""
+    />
+    <span class="conversationName">{ user?.name }</span>
+    
 </div>
+    <!-- {conversation} -->
