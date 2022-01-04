@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import Message from './Message.svelte';
 
     import type { User } from "../types";
 
@@ -209,7 +210,7 @@
         <div class="chatBoxTop">
             {#each messages as m}
                 <div>
-                    <!-- <Message message={m} own={m?.sender === user._id} /> -->
+                    <Message message={m} user={user} />
                 </div>
             {/each}
         </div>
