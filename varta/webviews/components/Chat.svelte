@@ -1,9 +1,14 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     import type { User } from "../types";
 
+	import { page } from './stores.js';
+	import { conversation } from './stores.js';
+	import { friendList } from './stores.js';
+    
     export let user: User;
-    let conversation;
-    let currentChat;
+    let messages;
     let friend: User | null = {
         _id:"tempid",
         githubId: "asdas",
@@ -11,6 +16,10 @@
         username:"vikaskbm", 
         avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
     };
+
+    let conversation_value: any;
+
+        
     // let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
     //     {
     //         text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
@@ -27,6 +36,11 @@
     //         date: "Today"
     //     }, 
     // ];
+    onMount(async () => {
+        conversation.subscribe((value:any) => {
+            conversation_value = value;
+        });
+    });
 </script>
  
 <style>
@@ -157,6 +171,10 @@
         <h2>Chat with {friend?.name}</h2>
         <!-- <h5>{conversation.length} messages</h5> -->
     </div>
+
+    <button on:click={() => console.log(conversation_value)}>
+        VIKAS
+    </button>
 </header>
 
 <main>

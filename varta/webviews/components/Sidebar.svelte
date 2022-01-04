@@ -26,8 +26,6 @@
 
                     const payload = await response.json()
                     user = payload.user
-                    console.log("payload", payload)
-                    console.log("user", user)
                     loading = false
             }
         })
@@ -62,7 +60,7 @@
             page.update((input) => "search")
         }}>Search People...</button>
         <br>
-        <ConversationList {user} {accessToken} page={page_value}/>
+        <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
         <h6>Click to send request...</h6>
         <Search/>

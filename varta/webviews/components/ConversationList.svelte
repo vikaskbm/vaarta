@@ -2,11 +2,13 @@
     import Conversation from "./Conversation.svelte";
     import { onMount } from 'svelte';
     import type { User } from "../types";
+
+	import { page } from './stores.js';
+	import { conversation } from './stores.js';
     
     export let accessToken: string;
     
     export let user: User;
-    export let page:string; 
     let conversationList: Array<{members: []}> = [];
 
     onMount(async () => {
@@ -23,7 +25,6 @@
             },
         });
         const payload = await response.json();
-        console.log("conversation", payload)
         conversationList = payload;
     });
 </script>
@@ -87,13 +88,12 @@ aside li h3{
 <aside>
     <h3>{user.name}</h3>
     <ul>
-        {#each conversationList as conversation}
+        {#each conversationList as conv}
             <li on:click={() => {
-                page = "chat"
-                console.log("HI")
-                console.log(page)
+                page.update((input) => "chat")
+                conversation.update(() => conv)
             }}>
-                <Conversation {conversation} currentUser={user} {accessToken}/>
+                <Conversation conversation={conv} currentUser={user} {accessToken}/>
             </li>
         {/each}
     </ul>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from './stores.js';
+
     let searchList: Array<{name: string, username: string, img_url: string}> = [
         {name: "Vikas Bishnoi", username:"vikaskbm", img_url: 'https://avatars.githubusercontent.com/u/43449508?v=4'}, 
     ];

@@ -3,26 +3,36 @@
     import { onMount } from 'svelte';
     
     export let currentUser: User;
-    export let conversation: {members: []} | null = null;
+    export let conversation: {members: []} | null = {members:[]};
     export let accessToken: string;
     
     let user: User;
 
     onMount(async () => { 
-        const friendId = conversation?.members.find((m) => m !== currentUser._id)
-        console.log("me", currentUser._id)
-        console.log("friend", friendId)
-        const getUser = async() => {
+        const getUser = async(friendId: any) => {
             const res = await fetch(`${apiBaseUrl}/api/users?userId=${friendId}`, {
                 headers: { 
                     authorization: `Bearer ${accessToken}`,
                 },
             });
-
+            
             const payload = await res.json();
             user = payload
         }
-        getUser();
+
+        if (conversation?.members && conversation?.members?.length > 2) {
+            user = { 
+                _id: '1',
+                githubId:' 1',
+                name: `${"temp"}`,
+                username: '1',
+                avatar: '1'
+            };
+
+        } else {
+            const friendId = conversation?.members.find((m) => m !== currentUser._id)
+            getUser(friendId);
+        }
     });
 </script>
   
@@ -59,4 +69,3 @@
     <span class="conversationName">{ user?.name }</span>
     
 </div>
-    <!-- {conversation} -->
