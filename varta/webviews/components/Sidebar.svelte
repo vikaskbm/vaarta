@@ -5,10 +5,12 @@
     import Chat from "./Chat.svelte";
     import type { User } from '../types';
 
+	import { page } from './stores.js';
+    
+    let page_value: string;
     let accessToken: string = '';
     let loading = false;
     let user: User | null = null;
-    let page:string = "home"; 
 
     onMount(async () => {
         window.addEventListener("message", async(event) => {
@@ -32,6 +34,10 @@
 
         tsvscode.postMessage({type: "get-token", value: undefined})
     })
+
+    page.subscribe(value => {
+		page_value = value;
+	});
 </script>
 
 <style>
@@ -43,7 +49,7 @@
 
 <div style="display: flex;">
     <button style="background:transparent" on:click={() => {
-        page="home";
+        page.update((input) => "home")
     }}> {page} </button>
 </div>
 <hr>
@@ -51,16 +57,16 @@
 {#if loading } 
 <div>Loading...</div>
 {:else if user}
-    {#if page=='home'}
+    {#if page_value=='home'}
         <button on:click={() => {
-            page="search";
+            page.update((input) => "search")
         }}>Search People...</button>
         <br>
-        <ConversationList {user} {accessToken} {page}/>
-    {:else if page==='search'}
+        <ConversationList {user} {accessToken} page={page_value}/>
+    {:else if page_value==='search'}
         <h6>Click to send request...</h6>
         <Search/>
-    {:else if page==='chat'}
+    {:else if page_value==='chat'}
         <h3 style="text-align: center;">FRIEND</h3>
         <hr>
         <Chat user={user}/>
@@ -68,14 +74,14 @@
         <h1>This is contact component</h1>
         <!-- Contact Component -->
         <button on:click={() => {
-            page="home";
+            page.update((input) => "home")
         }}>Back</button>
     {/if}
     <div style="position: absolute; margin-left: 33%; bottom:0; margin-bottom:40px">
         <button on:click={() => {
             accessToken = ''
             user = null
-            page="chat"
+            page.update((input) => "chat")
             tsvscode.postMessage({type: "logout", value: undefined})
         }}>Logout</button>
     </div>
@@ -88,10 +94,10 @@
 {/if}
 
 
-{#if !loading && page!=='contact'}
+{#if !loading && page_value!=='contact'}
     <div style="position: absolute; margin-left: 27%; bottom:0; margin-bottom:10px">
         <button on:click={() => {
-            page="contact";
+            page.update((input) => "chat")
         }}>Contact Us</button>
     </div>
 {/if}
