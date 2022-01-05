@@ -53,10 +53,11 @@
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
         socket = io("ws://localhost:8101");
-
         socket.on('welcome', function(msg:any){
             console.log('Client side message: ' + msg)
         });
+
+        console.log(socket)
 
     });
 

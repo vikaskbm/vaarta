@@ -1,10 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-
     import Search from "./Search.svelte";
     import ConversationList from "./ConversationList.svelte";
     import Chatbox from "./Chatbox.svelte";
-
     import type { User } from '../types';
 
 	import { page } from './stores.js';
@@ -14,7 +12,6 @@
     let loading = false;
     let user: User | null = null;
 
-   
     onMount(async () => {
         window.addEventListener("message", async(event) => {
             const message = event.data;
