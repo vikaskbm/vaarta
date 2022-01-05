@@ -10,7 +10,7 @@
     export let user: User;
     export let accessToken: string = '';
     
-    let messages: []=[];
+    let messages: any=[];
     let friend: User | null = {
         _id:"tempid",
         githubId: "asdas",
@@ -23,7 +23,7 @@
     let conversation_value: any;
 	let div: any;
     let autoscroll: any;
-
+    let newMessage: any = null;
     let socket: any = null;
 
     beforeUpdate(() => {
@@ -34,6 +34,9 @@
         if (autoscroll) div.scrollTo(0, div.scrollHeight);
     });
 
+    const setNewMessages = (newMessage: any) => {
+        messages = [...messages, newMessage]
+    }
     onMount(async () => {
         conversation.subscribe((value:any) => {
             conversation_value = value;
@@ -54,16 +57,22 @@
         getMessages(conversationId);
         socket = io("ws://localhost:8101");
         socket.emit("addUser", user._id)
-        socket.on('getUsers', function(users:any){
-            console.log(users)
-        });
+        $: newMessage && conversation_value?.members.includes(newMessage.sender) && setNewMessages(newMessage)
+
     });
 
-    async function addMessage(text:string) {
+    async function sendMessage(text:string) {
         if(value.length <= 0) {
             return;
         }
+        
+        const receiverId = conversation_value?.members.find((member: any) => member !== user._id)
 
+        socket.emit("sendMessage", {
+            senderId: user._id,
+            text: text,
+            receiverId: receiverId
+        })
         const response = await fetch(`${apiBaseUrl}/api/messages/`, {
             method: 'POST',
             body: JSON.stringify({
@@ -169,7 +178,7 @@
 
             <button 
                 class="chatSubmitButton"
-                on:click={() => addMessage(value)}
+                on:click={() => sendMessage(value)}
                 >
                     Send
             </button>
