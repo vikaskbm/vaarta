@@ -1,5 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+	import { beforeUpdate, afterUpdate } from 'svelte';
+    
     import Message from './Message.svelte';
 
     import type { User } from "../types";
@@ -20,24 +22,16 @@
 
     let value = ``;
     let conversation_value: any;
+	let div: any;
+    let autoscroll: any;
 
-        
-    // let conversation: Array<{text: string, name: string, author: string, time: string, date: string}> = [
-    //     {
-    //         text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
-    //         name: "Vikas", 
-    //         author: "vikaskbm", 
-    //         time: "10:30AM", 
-    //         date: "Today"
-    //     }, 
-    //     {
-    //         text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", 
-    //         name: "Sam", 
-    //         author: "sambob", 
-    //         time: "10:30AM", 
-    //         date: "Today"
-    //     }, 
-    // ];
+    beforeUpdate(() => {
+        autoscroll = div && (div.offsetHeight + div.scrollTop) > (div.scrollHeight - 20);
+    });
+
+    afterUpdate(() => {
+        if (autoscroll) div.scrollTo(0, div.scrollHeight);
+    });
     onMount(async () => {
         conversation.subscribe((value:any) => {
             conversation_value = value;
@@ -57,6 +51,27 @@
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
     });
+
+    async function addMessage(text:string) {
+        if(value.length <= 0) {
+            return;
+        }
+
+        const response = await fetch(`${apiBaseUrl}/api/messages/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                text: text,
+                conversationId: conversation_value?._id,
+                sender: user?._id,
+            }),
+            headers: {
+                'content-type':'application/json',
+                authorization: `Bearer ${accessToken}`,
+            },
+        }) 
+
+        value = ''
+    }
 </script>
  
 <style>
@@ -81,97 +96,47 @@
     }
 
     main{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         max-width:100%;
-        padding-left:0;
         padding: none;
-        list-style-type:none;
-        overflow-y:scroll;
-        height:330px;
+        
+        max-height:430px;
     }
 
-    .status{
-        width:8px;
-        height:8px;
-        border-radius:50%;
-        display:inline-block;
-        margin-right:7px;
+    .chatBoxTop {
+        height: 100%;
+        flex: 1 1 auto;
+		border-top: 1px solid #eee;
+		overflow-y: auto;
     }
-    .green{
-        background-color:#58b666;
-    }
-    .blue{
-        background-color:#6fbced;
-        margin-right:0;
-        margin-left:7px;
-    }
-
-    #chat{
-        width: 100%;
-        padding-left:0;
-        margin:0;
-        list-style-type:none; 
-        height:330px;
-        border-top:2px solid #fff;
-        border-bottom:2px solid #fff;
-    }
-    #chat li{
-        padding:3px 0px;
-    }
-    #chat h2,#chat h3{
-        display:inline-block;
-        font-size:13px;
-        font-weight:normal;
-    }
-
-    #chat .message{
+    .chatBoxBottom {
         margin-top: 5px;
-        padding:10px;
-        color:#fff;
-        line-height:20px;
-        max-width:90%;
-        display:inline-block;
-        text-align:left;
-        border-radius:5px;
+        padding-bottom: none;
+        margin-bottom: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-    #chat .me{
-        text-align:right;
-    }
-    #chat .you .message{
-        background-color:#58b666;
-    }
-    #chat .me .message{
-        background-color:#6fbced;
+    .chatMessageInput {
+        width: 80%;
+        height: 90px;
+        padding: 8px;
     }
 
-    footer{
-        padding:10px;
+    .chatSubmitButton {
+        width: 60px;
+        height: 30px;
+        border: none;
+        margin-top: 4.5rem;
+        cursor: pointer;
+        background-color: teal;
+        color: white;
     }
+    
 
-    footer > *{
-        display:inline-block;
-    }
-    footer textarea{
-        resize:none;
-        border:none;
-        display:block;
-        width:100%;
-        height:80px;
-        border-radius:3px;
-        padding:2px;
-        font-size:13px;
-    }
-    footer textarea::placeholder{
-        color:#ddd;
-    }
 
-    footer a{
-        text-decoration:none;
-        text-transform:uppercase;
-        font-weight:bold;
-        color:#6fbced;
-        margin-left:85%;
-        margin-top:7px;
-    }
 </style>
 
 <header>
@@ -194,13 +159,16 @@
                 </div>
             {/each}
         </div>
-        <div class="chatBoxBottom">
+        <div class="chatBoxBottom" bind:this={div}>
             <textarea class="chatMessageInput"
                 placeholder="write something..."
-                value={value} />
+                bind:value={value} />
 
-            <button class="chatSubmitButton">
-                Send
+            <button 
+                class="chatSubmitButton"
+                on:click={() => addMessage(value)}
+                >
+                    Send
             </button>
         </div>
      { :else }
@@ -209,3 +177,4 @@
         </span>
      {/if}
 </main>
+
