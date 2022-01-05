@@ -53,12 +53,10 @@
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
         socket = io("ws://localhost:8101");
-        socket.on('welcome', function(msg:any){
-            console.log('Client side message: ' + msg)
+        socket.emit("addUser", user._id)
+        socket.on('getUsers', function(users:any){
+            console.log(users)
         });
-
-        console.log(socket)
-
     });
 
     async function addMessage(text:string) {
