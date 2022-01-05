@@ -27,11 +27,14 @@
 
     beforeUpdate(() => {
         autoscroll = div && (div.offsetHeight + div.scrollTop) > (div.scrollHeight - 20);
+        console.log(1, div, autoscroll)
     });
 
     afterUpdate(() => {
         if (autoscroll) div.scrollTo(0, div.scrollHeight);
+        console.log(1, div, autoscroll)
     });
+
     onMount(async () => {
         conversation.subscribe((value:any) => {
             conversation_value = value;
@@ -72,6 +75,7 @@
 
         value = ''
     }
+
 </script>
  
 <style>
@@ -109,7 +113,7 @@
         height: 100%;
         flex: 1 1 auto;
 		border-top: 1px solid #eee;
-		overflow-y: auto;
+		overflow-y: scroll;
     }
     .chatBoxBottom {
         margin-top: 5px;
@@ -134,9 +138,6 @@
         background-color: teal;
         color: white;
     }
-    
-
-
 </style>
 
 <header>
@@ -152,14 +153,12 @@
 
 <main>
      {#if conversation_value }
-        <div class="chatBoxTop">
+        <div class="chatBoxTop" bind:this={div}>
             {#each messages as msg}
-                <div>
                     <Message message={msg} user={user} />
-                </div>
             {/each}
         </div>
-        <div class="chatBoxBottom" bind:this={div}>
+        <div class="chatBoxBottom">
             <textarea class="chatMessageInput"
                 placeholder="write something..."
                 bind:value={value} />

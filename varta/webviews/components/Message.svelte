@@ -5,7 +5,6 @@
     export let user: any;
     
 
-    console.log(message?.sender)
 </script>
 
 <style>
