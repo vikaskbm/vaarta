@@ -3,11 +3,10 @@
 	import { beforeUpdate, afterUpdate } from 'svelte';
     import Message from './Message.svelte';
     import { io } from 'socket.io-client'
-
-    import type { User } from "../types";
-	import { conversation } from './stores.js';
     
-
+    import type { User } from "../types";
+	import { conversation } from './stores';
+    
     export let user: User;
     export let accessToken: string = '';
     
@@ -24,6 +23,7 @@
     let conversation_value: any;
 	let div: any;
     let autoscroll: any;
+
     let socket: any = null;
 
     beforeUpdate(() => {
@@ -52,8 +52,12 @@
 
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
+        socket = io("ws://localhost:8101");
 
-        socket = io("ws://localhost:8101")
+        socket.on('welcome', function(msg:any){
+            console.log('Client side message: ' + msg)
+        });
+
     });
 
     async function addMessage(text:string) {

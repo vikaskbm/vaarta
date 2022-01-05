@@ -9,7 +9,6 @@ router.post("/", async (req, res) => {
 
     try {
         const savedConversation = await newConversation.save();
-        console.log(savedConversation)
         res.status(200).json(savedConversation)
     } catch(err) {
         res.send('Something went wrong')
@@ -21,7 +20,6 @@ router.get("/:userId", async (req, res) => {
         const conversations = await Conversation.find({
             members: { $in: [req.params.userId]}
         });
-        console.log(conversations)
         res.status(200).json(conversations)
     } catch(err) {
         res.status(500).json(err)

@@ -47,12 +47,9 @@ const main = async() => {
     },
 
     async function(_, __, profile, cb) {
-      console.log(profile._json.avatar_url);
       let user = await User.findOne({ githubId: profile.id })
-      console.log(1, user)
 
       if(user) {
-        console.log(2, user)
         await user.save()
       } else {
         user = new User({
@@ -61,9 +58,7 @@ const main = async() => {
           username: profile.username,
           avatar: profile._json.avatar_url,
         })
-        console.log(2, user)
         let result = await user.save();
-        console.log(3, result)
       }
       cb(null, {accessToken: jwt.sign({userId: user.id}, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "1y"
