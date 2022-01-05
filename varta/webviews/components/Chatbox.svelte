@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 	import { beforeUpdate, afterUpdate } from 'svelte';
-    
     import Message from './Message.svelte';
+    import { io } from 'socket.io-client'
 
     import type { User } from "../types";
 	import { conversation } from './stores.js';
@@ -24,15 +24,14 @@
     let conversation_value: any;
 	let div: any;
     let autoscroll: any;
+    let socket: any = null;
 
     beforeUpdate(() => {
         autoscroll = div && (div.offsetHeight + div.scrollTop) > (div.scrollHeight - 20);
-        console.log(1, div, autoscroll)
     });
 
     afterUpdate(() => {
         if (autoscroll) div.scrollTo(0, div.scrollHeight);
-        console.log(1, div, autoscroll)
     });
 
     onMount(async () => {
@@ -53,6 +52,8 @@
 
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
+
+        socket = io("ws://localhost:8101")
     });
 
     async function addMessage(text:string) {
