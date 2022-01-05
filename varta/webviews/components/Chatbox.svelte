@@ -1,8 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 	import { beforeUpdate, afterUpdate } from 'svelte';
-    import Message from './Message.svelte';
     import { io } from 'socket.io-client'
+    import axios from "axios";
+    
+    import Message from './Message.svelte';
     
     import type { User } from "../types";
 	import { conversation } from './stores';
@@ -73,18 +75,17 @@
             text: text,
             receiverId: receiverId
         })
-        const response = await fetch(`${apiBaseUrl}/api/messages/`, {
-            method: 'POST',
-            body: JSON.stringify({
+
+        try {
+            const res = await axios.post(`${apiBaseUrl}/api/messages/`, {
                 text: text,
                 conversationId: conversation_value?._id,
                 sender: user?._id,
-            }),
-            headers: {
-                'content-type':'application/json',
-                authorization: `Bearer ${accessToken}`,
-            },
-        }) 
+            });
+            messages = [...messages, res.data]
+        } catch (err) {
+            console.log(err);
+        }
 
         value = ''
     }
