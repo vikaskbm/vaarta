@@ -3,6 +3,8 @@
     import type { User } from "../types";
     import axios from 'axios';
 
+    export let user: User;
+
     let searchText: string = "";
     let searchList: Array<User> | [] = [];
 
@@ -20,7 +22,7 @@
         }
     }
 
-    
+    console.log(user)
 </script>
 
 <style>
@@ -123,17 +125,19 @@
     </header>
     <br>
     {#each searchList as searchItem}
-        <ul>
-            <li>
-                <img src="{searchItem.avatar}" alt="">
-                <div>
-                    <h2>{searchItem.name}</h2>
-                    <h3>
-                        {searchItem.username}
-                    </h3>
-                </div>
-            </li>
-        </ul>
+        {#if searchItem._id!==user._id}
+            <ul>
+                <li>
+                    <img src="{searchItem.avatar}" alt="">
+                    <div>
+                        <h2>{searchItem.name}</h2>
+                        <h3>
+                            {searchItem.username}
+                        </h3>
+                    </div>
+                </li>
+            </ul>
+        {/if}
     {/each}
 
 
