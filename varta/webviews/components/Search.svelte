@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { page } from './stores.js';
     import type { User } from "../types";
+    import axios from 'axios';
 
-    let searchVal: string = "";
+    let searchText: string = "";
     let searchList: Array<User> | [] = [];
 
     
     
-    const getUsers = () => {
-        
+    const getUsers = async() => {
+        const res = await axios.post(`${apiBaseUrl}/users/search/`, {
+                searchText: searchText,
+            });
+        const payload = res.data;
+        searchList = payload;     
+        console.log(searchList)
     }
 
     
@@ -106,7 +112,7 @@
                 type="text" 
                 class="searchTerm" 
                 placeholder="Search Friends?"
-                bind:value={searchVal}
+                bind:value={searchText}
                 on:input={getUsers}>
             <button type="submit" class="searchButton">
               <span class="search-icon"></span>
