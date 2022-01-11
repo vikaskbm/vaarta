@@ -4,6 +4,7 @@
     
     import { page } from './stores.js';
 	import { conversation } from './stores.js';
+	import { friend } from './stores.js';
 
     export let currentUser: User;
     export let conv: {members: []} | null = {members:[]};
@@ -66,6 +67,7 @@
 <div class="conversation" on:click={() => {
     page.update((input) => "chat")
     conversation.update(() => conv)
+    friend.update(() => user)
 }}>
     <img
         class="conversationImg"

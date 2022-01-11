@@ -8,21 +8,23 @@
     
     import type { User } from "../types";
 	import { conversation } from './stores';
+	import { friend } from './stores';
     
     export let user: User;
     export let accessToken: string = '';
     
     let messages: any=[];
-    let friend: User | null = {
-        _id:"tempid",
-        githubId: "asdas",
-        name: "Vikas Bishnoi", 
-        username:"vikaskbm", 
-        avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
-    };
+    // let friend:  = {
+    //     _id:"tempid",
+    //     githubId: "asdas",
+    //     name: "Vikas Bishnoi", 
+    //     username:"vikaskbm", 
+    //     avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
+    // };
 
     let value = ``;
     let conversation_value: any;
+    let friend_value: User | null;
 	let div: any;
     let autoscroll: any;
     let newMessage: any = null;
@@ -44,6 +46,23 @@
             conversation_value = value;
         });
 
+        friend.subscribe((value:any) => {
+            friend_value = value;
+        });
+
+        if(conversation_value === null) {
+            const res = await axios.get(`${apiBaseUrl}/api/conversations/getconv`, {
+                params: {
+                    senderId: user?._id,
+                    receiverId: friend_value?._id,
+                }    
+            }).then(res => {
+                conversation_value = res.data[0]
+                // conversation.update(conversation_value)
+            })
+        }
+        
+        
         const getMessages = async(conversationId: any) => {
             const res = await fetch(`${apiBaseUrl}/api/messages/${conversationId}`, {
                 headers: { 
@@ -56,6 +75,7 @@
         }
 
         const conversationId = conversation_value?._id;
+        console.log(conversationId)
         getMessages(conversationId);
         socket = io("ws://localhost:8101");
         socket.emit("addUser", user._id)
@@ -158,10 +178,10 @@
     <div class="conversationBox">
         <img
             class="conversationImg"
-            src={ friend?.avatar }
+            src={ friend_value?.avatar }
             alt=""
         />
-        <span class="conversationName">Chat with {friend?.name}</span>
+        <span class="conversationName">Chat with {friend_value?.name}</span>
     </div>
 </header>
 
@@ -186,7 +206,7 @@
         </div>
      { :else }
         <span class="noConversationText">
-            Send a message to {friend?.name}.
+            Send a message to {friend_value?.name}.
         </span>
      {/if}
 </main>

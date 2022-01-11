@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { page } from './stores.js';
+	import { friend, page } from './stores.js';
+	import { conversation } from './stores.js';
+
     import type { User } from "../types";
     import axios from 'axios';
 
@@ -7,7 +9,6 @@
 
     let searchText: string = "";
     let searchList: Array<User> | [] = [];
-
     
     
     const getUsers = async() => {
@@ -127,7 +128,11 @@
     {#each searchList as searchItem}
         {#if searchItem._id!==user._id}
             <ul>
-                <li>
+                <li on:click={() => {
+                    page.update((input) => "chat")
+                    conversation.update(() => null)
+                    friend.update(() => searchItem)
+                }}>>
                     <img src="{searchItem.avatar}" alt="">
                     <div>
                         <h2>{searchItem.name}</h2>

@@ -14,7 +14,22 @@ router.post("/", async (req, res) => {
         res.send('Something went wrong')
     }
 })
-// get conversation
+
+// get conversation of two users
+router.get("/getconv", async (req, res) => {
+    const senderId = req.query.senderId
+    const receiverId = req.query.receiverId
+    try {
+        const conversation = await Conversation.find({
+            members: { $all: [senderId, receiverId]}
+        });
+        res.status(200).json(conversation)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+// get conversation of one user
 router.get("/:userId", async (req, res) => {
     try {
         const conversations = await Conversation.find({
