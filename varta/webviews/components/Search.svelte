@@ -9,12 +9,15 @@
     
     
     const getUsers = async() => {
-        const res = await axios.post(`${apiBaseUrl}/users/search/`, {
-                searchText: searchText,
-            });
-        const payload = res.data;
-        searchList = payload;     
-        console.log(searchList)
+        if(searchText.length > 2) {
+            const res = await axios.post(`${apiBaseUrl}/api/users/search`, {
+                    searchText: searchText,
+                });
+            searchList = res.data;     
+            console.log(searchList)
+        } else {
+            searchList = [];
+        }
     }
 
     
@@ -60,7 +63,6 @@
         padding: 0px;
         list-style-type:none;
         overflow-y:scroll;
-        height:400px;
     }
     li {
         width: 100%;
