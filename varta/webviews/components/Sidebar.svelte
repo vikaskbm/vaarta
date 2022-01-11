@@ -61,7 +61,7 @@
         <br>
         <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
-        <h6>Click to send request...</h6>
+        <h4>Click to Converse...</h4>
         <Search/>
     {:else if page_value==='chat'}
         <Chatbox {user} {accessToken}/>

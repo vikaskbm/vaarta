@@ -1,71 +1,92 @@
 <script lang="ts">
 	import { page } from './stores.js';
+    import type { User } from "../types";
 
-    let searchList: Array<{name: string, username: string, img_url: string}> = [
-        {name: "Vikas Bishnoi", username:"vikaskbm", img_url: 'https://avatars.githubusercontent.com/u/43449508?v=4'}, 
-    ];
+    let searchVal: string = "";
+    let searchList: Array<User> | [] = [];
+
+    
+    
+    const getUsers = () => {
+        
+    }
+
     
 </script>
 
 <style>
-    aside{
-        width:250px;
-        height:10px;
-        display:inline-block;
-        font-size:15px;
-        vertical-align:top;
+    .search {
+        width: 100%;
+        display: flex;
     }
-    aside input{
-        width:100%;
-        height:50px;
-        line-height:50px;
-        padding:0 50% 0 20px;
-        background-color:#5e616a;
-        border:none;
-        border-radius:3px;
+
+    .searchTerm {
+        margin: none;
+        width: 80%;
+        padding: 5px;
+        height: 3rem;
+        outline: none;
+    }
+
+    .searchButton {
+        width: 20%;
+        height: 3rem;
+        text-align: center;
+        color: #fff;
+        padding: none;
+        margin: none;
+        cursor: pointer;
+        font-size: 20px;
+        outline: none;
+    }
+    .search-icon {
+        padding:0 40% 0 10px;
         color:#fff;
         background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
         background-repeat:no-repeat;
-        background-position:98%;
-        background-size:40px;
+        background-size:100%;
     }
-    aside input::placeholder{
+    input::placeholder{
         color:#fff;
     }
-    aside ul{
+    ul{
         width:104%;
-        padding-left:0;
-        padding: none;
+        padding: 0px;
         list-style-type:none;
         overflow-y:scroll;
         height:400px;
     }
-
-    aside li:hover{
+    li {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    li:hover{
         background-color:#5e616a;
     }
     h2,h3{
         margin:0;
     }
-    aside li img{
+    li img{
+        width: 50px;
         max-width: 50px;
-        height: 50px;
+        height: auto;
         border-radius:50%;
-        margin-left:20px;
-        margin-right:8px;
+        margin-left:8px;
+        margin-right:20px;
     }
-    aside li div{
+    li div{
         display:inline-block;
         vertical-align:top;
         margin-top:12px;
     }
-    aside li h2{
+    li h2{
         font-size:14px;
         color:#fff;
         font-weight:normal;
         margin-bottom:5px;
     }
-    aside li h3{
+    li h3{
         font-size:12px;
         color:#7e818a;
         font-weight:normal;
@@ -79,26 +100,33 @@
     }
 </style>
 
-<aside>
     <header>
-        <input type="text" placeholder="search">
+        <div class="search">
+            <input 
+                type="text" 
+                class="searchTerm" 
+                placeholder="Search Friends?"
+                bind:value={searchVal}
+                on:input={getUsers}>
+            <button type="submit" class="searchButton">
+              <span class="search-icon"></span>
+            </button>
+        </div>
     </header>
     <br>
     {#each searchList as searchItem}
         <ul>
             <li>
-                <img src="{searchItem.img_url}" alt="">
+                <img src="{searchItem.avatar}" alt="">
                 <div>
                     <h2>{searchItem.name}</h2>
                     <h3>
-                        <span class="status orange"></span>
                         {searchItem.username}
                     </h3>
                 </div>
             </li>
         </ul>
     {/each}
-</aside>
 
 
 
