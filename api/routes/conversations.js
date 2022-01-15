@@ -59,4 +59,30 @@ router.post("/room", async (req, res) => {
 })
 
 
+// Join room conversation
+router.post("/room/join", async (req, res) => {
+    try {
+        Conversation.findOneAndUpdate(
+            { uuid: req.params.roomID }, 
+        { $addToSet: { members: req.params.userId  } },
+        function (error, success) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(success);
+            }
+        });
+        const roomConversation = await Conversation.find({
+            uuid: req.params.userId,
+            type: 'room'
+        });
+        
+        const savedRoom = await newRoomConversation.save();
+        res.status(200).json(savedRoom)
+    } catch(err) {
+        res.send('Something went wrong')
+    }
+})
+
+
 module.exports = router
