@@ -4,6 +4,7 @@
     
     
     import type { User } from "../types";
+	import { page } from './stores.js';
 	import { conversation } from './stores';
 	import { friend } from './stores';
     
@@ -11,16 +12,17 @@
     export let accessToken: string = '';
     
     let roomName: string = "";
-    let conversation_value: any;
 
     const createRoom = async() => {
         if(roomName.length > 2) {
-            // const res = await axios.post(`${apiBaseUrl}/api/conversation/room/create`, {
-            //         userId: user._id,
-            //         name: roomName,
-            //         type: "room"
-            //     });
-            console.log(roomName)
+            const res = await axios.post(`${apiBaseUrl}/api/conversations/room/create`, {
+                    userId: user._id,
+                    name: roomName
+                });
+
+            console.log(res)
+            page.update((input) => "chat")
+            conversation.update(() => res.data)
         } else {
             const err = [];
         }
@@ -40,7 +42,7 @@
         placeholder="Search Friends?"
         bind:value={roomName}
         >
-    <button type="submit" on:submit={createRoom}>
+    <button type="submit" on:click={createRoom}>
         Create Room
     </button>
 </div>

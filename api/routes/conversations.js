@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const ShortUniqueId = require('short-unique-id');
 const Conversation = require('../models/Conversation')
 
 // Create new conversation
@@ -43,13 +44,21 @@ router.get("/:userId", async (req, res) => {
 
 // Create a new room conversation
 router.post("/room/create", async (req, res) => {
+    
+    const uid = new ShortUniqueId({ 
+        length: 8,
+        dictionary: 'number', 
+    });
+
+    
     const newRoomConversation = await new Conversation({
-        members: [req.body.senderId],
+        members: [req.body.userId],
         name: req.body.name,
         type: 'room',
-        uuid: id
+        uuid: uid()
     })
-
+    
+    console.log(req.body, uid())
     try {
         const savedRoom = await newRoomConversation.save();
         res.status(200).json(savedRoom)
