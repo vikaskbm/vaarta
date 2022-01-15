@@ -42,7 +42,7 @@ router.get("/:userId", async (req, res) => {
 })
 
 // Create a new room conversation
-router.post("/room", async (req, res) => {
+router.post("/room/create", async (req, res) => {
     const newRoomConversation = await new Conversation({
         members: [req.body.senderId],
         name: req.body.name,

@@ -3,6 +3,8 @@
     import Search from "./Search.svelte";
     import ConversationList from "./ConversationList.svelte";
     import Chatbox from "./Chatbox.svelte";
+    import CreateRoom from './CreateRoom.svelte';
+
     import type { User } from '../types';
 
 	import { page } from './stores.js';
@@ -60,10 +62,10 @@
         }}>Search People...</button>
         <br>
         <button on:click={() => {
-            page.update((input) => "createRoom")
+            page.update((input) => "create_room")
         }}>Create Room</button>
         <button on:click={() => {
-            page.update((input) => "joinRoom")
+            page.update((input) => "join_room")
         }}>Join</button>
         <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
@@ -71,9 +73,12 @@
         <Search {user}/>
     {:else if page_value==='chat'}
         <Chatbox {user} {accessToken}/>
+    {:else if page_value==='create_room'}
+        <CreateRoom {user} {accessToken}/>
+    {:else if page_value==='join_room'}
+        <Chatbox {user} {accessToken}/>
     {:else}
         <h1>This is contact component</h1>
-        <!-- Contact Component -->
         <button on:click={() => {
             page.update((input) => "home")
         }}>Back</button>
