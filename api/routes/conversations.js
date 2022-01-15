@@ -40,4 +40,23 @@ router.get("/:userId", async (req, res) => {
         res.status(500).json(err)
     }
 })
+
+// Create a new room conversation
+router.post("/room", async (req, res) => {
+    const newRoomConversation = await new Conversation({
+        members: [req.body.senderId],
+        name: req.body.name,
+        type: 'room',
+        uuid: id
+    })
+
+    try {
+        const savedRoom = await newRoomConversation.save();
+        res.status(200).json(savedRoom)
+    } catch(err) {
+        res.send('Something went wrong')
+    }
+})
+
+
 module.exports = router

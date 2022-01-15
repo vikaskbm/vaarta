@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const ConversationSchema = new mongoose.Schema({
         members: {
-            type: Array
+            type: Array,
+            default: 'user'
+        },
+        name: {
+            type: String,
         },
         type: {
             type: String
