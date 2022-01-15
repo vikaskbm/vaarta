@@ -59,6 +59,19 @@
             }).then(res => {
                 conversation_value = res.data[0]
                 // conversation.update(conversation_value)
+            }).catch(err => {
+                console.log("VIKAS")
+                const res = axios.post(`${apiBaseUrl}/api/conversations/`, {
+                    senderId: user?._id,
+                        receiverId: friend_value?._id,
+                }).then(res => {
+                console.log("BISHNOI")
+                    conversation_value = res.data
+                    console.log(conversation_value)
+                }).catch(err => {
+                    console.log("KUMAR")
+                    console.log('200')
+                })
             })
         }
         
@@ -72,6 +85,7 @@
             
             const payload = await res.json();
             messages = payload
+            console.log(messages)
         }
 
         const conversationId = conversation_value?._id;
@@ -102,8 +116,12 @@
                 sender: user?._id,
             });
             messages = [...messages, res.data]
+            console.log(messages)
+            console.log("ERROR MESSAGE")
+
         } catch (err) {
             console.log(err);
+            console.log("ERROR MESSAGE")
         }
 
         value = ''
@@ -171,42 +189,55 @@
         background-color: teal;
         color: white;
     }
+    
+aside{
+    width:250px;
+    height:100px;
+    max-height:175px;
+    display:inline-block;
+    font-size:15px;
+    vertical-align:top;
+}
 </style>
 
-<header>
-    <div class="conversationBox">
-        <img
-            class="conversationImg"
-            src={ friend_value?.avatar }
-            alt=""
-        />
-        <span class="conversationName">Chat with {friend_value?.name}</span>
-    </div>
-</header>
+<aside>
+    <header>
+        <div class="conversationBox">
+            <img
+                class="conversationImg"
+                src={ friend_value?.avatar }
+                alt=""
+            />
+            <span class="conversationName">Chat with {friend_value?.name}</span>
+        </div>
+    </header>
+    
+   
+</aside>
+
 
 <main>
-     {#if conversation_value }
-        <div class="chatBoxTop" bind:this={div}>
-            {#each messages as msg}
-                    <Message message={msg} user={user} />
-            {/each}
-        </div>
-        <div class="chatBoxBottom">
-            <textarea class="chatMessageInput"
-                placeholder="share code?..."
-                bind:value={value} />
+    {#if conversation_value }
+       <div class="chatBoxTop" bind:this={div}>
+           {#each messages as msg}
+                   <Message message={msg} user={user} />
+           {/each}
+       </div>
+       <div class="chatBoxBottom">
+           <textarea class="chatMessageInput"
+               placeholder="share code?..."
+               bind:value={value} />
 
-            <button 
-                class="chatSubmitButton"
-                on:click={() => sendMessage(value)}
-                >
-                    Send
-            </button>
-        </div>
-     { :else }
-        <span class="noConversationText">
-            Send a message to {friend_value?.name}.
-        </span>
-     {/if}
+           <button 
+               class="chatSubmitButton"
+               on:click={() => sendMessage(value)}
+               >
+                   Send
+           </button>
+       </div>
+    { :else }
+       <span class="noConversationText">
+           Send a message to {friend_value?.name}.
+       </span>
+    {/if}
 </main>
-

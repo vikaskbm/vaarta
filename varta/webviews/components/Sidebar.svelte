@@ -59,12 +59,12 @@
             page.update((input) => "search")
         }}>Search People...</button>
         <br>
-        <!-- <button on:click={() => {
+        <button on:click={() => {
             page.update((input) => "createRoom")
         }}>Create Room</button>
         <button on:click={() => {
             page.update((input) => "joinRoom")
-        }}>Join</button> -->
+        }}>Join</button>
         <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
         <h4>Click to Converse...</h4>

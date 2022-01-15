@@ -29,14 +29,7 @@
   
   
 <style>
-aside{
-    width:250px;
-    height:10px;
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
-}
-aside ul{
+ul{
     width:104%;
     padding-left:0;
     padding: none;
@@ -44,31 +37,31 @@ aside ul{
     overflow-y:scroll;
     height:400px;
 }
-    aside li:hover{
+li:hover{
     background-color:#5e616a;
 }
 h2,h3{
     margin:0;
 }
-aside li img{
+li img{
     max-width: 50px;
     height: 50px;
     border-radius:50%;
     margin-left:20px;
     margin-right:8px;
 }
-aside li div{
+li div{
     display:inline-block;
     vertical-align:top;
     margin-top:12px;
 }
-aside li h2{
+li h2{
     font-size:14px;
     color:#fff;
     font-weight:normal;
     margin-bottom:5px;
 }
-aside li h3{
+li h3{
     font-size:12px;
     color:#7e818a;
     font-weight:normal;
@@ -82,15 +75,13 @@ aside li h3{
 }
 </style>
   
-<aside>
-    <ul>
-        {#each conversationList as conv}
-            <li>
-                <Conversation {conv} currentUser={user} {accessToken}/>
-            </li>
-        {/each}
-    </ul>
-</aside>
+<ul>
+    {#each conversationList as conv}
+        <li>
+            <Conversation {conv} currentUser={user} {accessToken}/>
+        </li>
+    {/each}
+</ul>
   
   
   

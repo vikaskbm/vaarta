@@ -17,7 +17,6 @@
                     searchText: searchText,
                 });
             searchList = res.data;     
-            console.log(searchList)
         } else {
             searchList = [];
         }
