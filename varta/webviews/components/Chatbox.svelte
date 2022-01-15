@@ -75,7 +75,6 @@
         }
 
         const conversationId = conversation_value?._id;
-        console.log(conversationId)
         getMessages(conversationId);
         socket = io("ws://localhost:8101");
         socket.emit("addUser", user._id)
@@ -194,7 +193,7 @@
         </div>
         <div class="chatBoxBottom">
             <textarea class="chatMessageInput"
-                placeholder="write something..."
+                placeholder="share code?..."
                 bind:value={value} />
 
             <button 

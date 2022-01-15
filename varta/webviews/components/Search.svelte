@@ -132,7 +132,7 @@
                     page.update((input) => "chat")
                     conversation.update(() => null)
                     friend.update(() => searchItem)
-                }}>>
+                }}>
                     <img src="{searchItem.avatar}" alt="">
                     <div>
                         <h2>{searchItem.name}</h2>

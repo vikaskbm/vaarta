@@ -59,6 +59,12 @@
             page.update((input) => "search")
         }}>Search People...</button>
         <br>
+        <!-- <button on:click={() => {
+            page.update((input) => "createRoom")
+        }}>Create Room</button>
+        <button on:click={() => {
+            page.update((input) => "joinRoom")
+        }}>Join</button> -->
         <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
         <h4>Click to Converse...</h4>
@@ -72,14 +78,13 @@
             page.update((input) => "home")
         }}>Back</button>
     {/if}
-    <div style="position: absolute; margin-left: 33%; bottom:0; margin-bottom:40px">
-        <button on:click={() => {
-            accessToken = ''
-            user = null
-            page.update((input) => "chat")
-            tsvscode.postMessage({type: "logout", value: undefined})
-        }}>Logout</button>
-    </div>
+    
+    <button style="bottom: 0; margin-top: 170%;" on:click={() => {
+        accessToken = ''
+        user = null
+        page.update((input) => "chat")
+        tsvscode.postMessage({type: "logout", value: undefined})
+    }}>Logout</button>
 {:else}
     <button 
         class="login-btn"
@@ -89,10 +94,9 @@
 {/if}
 
 
+
 {#if !loading && page_value!=='contact'}
-    <div style="position: absolute; margin-left: 27%; bottom:0; margin-bottom:10px">
-        <button on:click={() => {
-            page.update((input) => "chat")
-        }}>Contact Us</button>
-    </div>
+    <button style="bottom: 0;" on:click={() => {
+        page.update((input) => "chat")
+    }}>Contact Us</button>
 {/if}
