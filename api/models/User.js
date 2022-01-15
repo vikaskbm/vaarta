@@ -5,7 +5,6 @@ const UserSchema = new mongoose.Schema({
         name: String,
         username: String,
         avatar: String,
-        plant: String,
     }
 );
 
