@@ -20,7 +20,7 @@ router.get("/getconv", async (req, res) => {
     const senderId = req.query.senderId
     const receiverId = req.query.receiverId
     try {
-        const conversation = await Conversation.find({
+        const conversation = await Conversation.findOne({
             members: { $all: [senderId, receiverId]}
         });
         res.status(200).json(conversation)
