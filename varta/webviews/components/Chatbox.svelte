@@ -60,17 +60,13 @@
                 conversation_value = res.data[0]
                 // conversation.update(conversation_value)
             }).catch(err => {
-                console.log("VIKAS")
                 const res = axios.post(`${apiBaseUrl}/api/conversations/`, {
                     senderId: user?._id,
                         receiverId: friend_value?._id,
                 }).then(res => {
-                console.log("BISHNOI")
                     conversation_value = res.data
-                    console.log(conversation_value)
                 }).catch(err => {
-                    console.log("KUMAR")
-                    console.log('200')
+                    console.log(err)
                 })
             })
         }
@@ -85,7 +81,6 @@
             
             const payload = await res.json();
             messages = payload
-            console.log(messages)
         }
 
         const conversationId = conversation_value?._id;
@@ -116,12 +111,9 @@
                 sender: user?._id,
             });
             messages = [...messages, res.data]
-            console.log(messages)
-            console.log("ERROR MESSAGE")
 
         } catch (err) {
             console.log(err);
-            console.log("ERROR MESSAGE")
         }
 
         value = ''

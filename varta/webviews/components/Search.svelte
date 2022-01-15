@@ -21,8 +21,6 @@
             searchList = [];
         }
     }
-
-    console.log(user)
 </script>
 
 <style>
