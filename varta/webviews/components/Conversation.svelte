@@ -7,7 +7,7 @@
 	import { friend } from './stores.js';
 
     export let currentUser: User;
-    export let conv: {members: []} | null = {members:[]};
+    export let conv: {members: [], type:String, name: string} | null = {members:[], type:"", name:""};
     export let accessToken: string;
     
     let user: User;
@@ -24,15 +24,9 @@
             user = payload
         }
 
-        if (conv?.members && conv?.members?.length > 2) {
-            user = { 
-                _id: currentUser._id,
-                githubId:' 1',
-                name: `${"temp"}`,
-                username: currentUser.username,
-                avatar: './../static/group_icon.png'
-            };
-
+        if(conv?.type === 'room') {
+            user.name = conv?.name;
+            user.avatar = 'room'
         } else {
             const friendId = conv?.members.find((m) => m !== currentUser._id)
             getUser(friendId);
@@ -66,7 +60,7 @@
 
 <div class="conversation" on:click={() => {
     page.update((input) => "chat")
-    conversation.update(() => conv)
+    // conversation.update(() => conv)
     friend.update(() => user)
 }}>
     <img

@@ -6,7 +6,7 @@
     export let accessToken: string;
     export let user: User;
     
-    let conversationList: Array<{members: []}> = [];
+    let conversationList: Array<{members: [], type:String, name: string} | null> = [];
 
     onMount(async () => {
         window.addEventListener("message", async (event) => {

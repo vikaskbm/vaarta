@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import axios from "axios";
-    
     
     import type { User } from "../types";
 	import { page } from './stores.js';
