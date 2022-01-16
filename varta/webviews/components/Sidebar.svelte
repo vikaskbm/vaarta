@@ -67,7 +67,7 @@
         }}>Create Room</button>
         <button on:click={() => {
             page.update((input) => "join_room")
-        }}>Join</button>
+        }}>Join Room</button>
         <ConversationList {user} {accessToken}/>
     {:else if page_value==='search'}
         <h4>Click to Converse...</h4>

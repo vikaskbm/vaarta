@@ -51,12 +51,12 @@
 <div class="search">
     <input 
         type="text" 
-        class="searchTerm" 
-        placeholder="Search Friends?"
+        class="roomIDtext" 
+        placeholder="Enter room name"
         bind:value={roomID}
         on:input={validateFn}>
     <button type="submit" on:click={joinRoom} style="margin-bottom: 10px;">
-        Join Room
+        Join
     </button>
     {#if errMsg === 'nan'}
         <p style="color: red;">Room ID must only contain digits</p>

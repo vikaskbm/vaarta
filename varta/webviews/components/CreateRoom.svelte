@@ -40,10 +40,10 @@
     <input 
         type="text" 
         class="searchTerm" 
-        placeholder="Search Friends?"
+        placeholder="Create room name"
         bind:value={roomName}
         >
     <button type="submit" on:click={createRoom}>
-        Create Room
+        Create
     </button>
 </div>
