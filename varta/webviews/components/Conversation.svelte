@@ -50,6 +50,18 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 20px;
+  
+}
+
+.conversationImgGrp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
 }
 
 .conversationName {
@@ -60,14 +72,19 @@
 
 <div class="conversation" on:click={() => {
     page.update((input) => "chat")
-    // conversation.update(() => conv)
+    conversation.update(() => conv)
     friend.update(() => user)
 }}>
-    <img
-        class="conversationImg"
-        src={ user?.avatar }
-        alt=""
-    />
-    <span class="conversationName">{ user?.name }</span>
+    {#if conv?.type === 'room'}
+        <span class="conversationImgGrp">{conv?.name[0].toUpperCase()}</span>
+        <span class="conversationName">{ conv?.name }</span>
+        {:else}
+        <img
+            class="conversationImg"
+            src={ user?.avatar }
+            alt=""
+        />
+        <span class="conversationName">{ user?.name }</span>
+    {/if}
     
 </div>
