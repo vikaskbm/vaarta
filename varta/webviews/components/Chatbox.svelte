@@ -14,13 +14,6 @@
     export let accessToken: string = '';
     
     let messages: any=[];
-    // let friend:  = {
-    //     _id:"tempid",
-    //     githubId: "asdas",
-    //     name: "Vikas Bishnoi", 
-    //     username:"vikaskbm", 
-    //     avatar: 'https://avatars.githubusercontent.com/u/43449508?v=4'
-    // };
 
     let value = ``;
     let conversation_value: any;
@@ -55,14 +48,13 @@
                 params: {
                     senderId: user?._id,
                     receiverId: friend_value?._id,
-                }    
+                }
             }).then(res => {
-                conversation_value = res.data[0]
-                // conversation.update(conversation_value)
+                conversation_value = res.data
             }).catch(err => {
                 const res = axios.post(`${apiBaseUrl}/api/conversations/`, {
                     senderId: user?._id,
-                        receiverId: friend_value?._id,
+                    receiverId: friend_value?._id,
                 }).then(res => {
                     conversation_value = res.data
                 }).catch(err => {
@@ -71,7 +63,8 @@
             })
         }
         
-        
+        // Helper fucntion to retrieve all the messages from a conversation and 
+        // save it to a local variable i.e. messages
         const getMessages = async(conversationId: any) => {
             const res = await fetch(`${apiBaseUrl}/api/messages/${conversationId}`, {
                 headers: { 
@@ -88,7 +81,6 @@
         socket = io("ws://localhost:8101");
         socket.emit("addUser", user._id)
         $: newMessage && conversation_value?.members.includes(newMessage.sender) && setNewMessages(newMessage)
-
     });
 
     async function sendMessage(text:string) {
@@ -222,7 +214,7 @@ aside{
     {#if conversation_value }
        <div class="chatBoxTop" bind:this={div}>
            {#each messages as msg}
-                   <Message message={msg} user={user} />
+                <Message message={msg} user={user} />
            {/each}
        </div>
        <div class="chatBoxBottom">

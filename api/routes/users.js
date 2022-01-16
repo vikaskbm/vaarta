@@ -49,11 +49,10 @@ router.get("/", async (req, res) => {
     }
 });
 
+
 // Search Friends
 router.post("/search", async (req, res) => {
-    console.log(req.body) 
     try {
-    
         const searchText = req.body.searchText;
         let users = await User.find({username: {$regex: new RegExp('^'+searchText+'.*', 'i')}}).exec()
         users = users.slice(0, 10);

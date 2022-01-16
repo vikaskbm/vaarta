@@ -1,9 +1,18 @@
 <script lang="ts">
     import { format } from "timeago.js";
 
+    import { friend } from './stores';
+    
+    import type { User } from "../types";
+
+    let friend_value: User | null;
+    
     export let message: any;
     export let user: any;
     
+    friend.subscribe((value:any) => {
+        friend_value = value;
+    });
 
 </script>
 
@@ -52,9 +61,9 @@
 <div class={message?.sender === user._id ? "message own" : "message"}>
     <div class="messageTop">
         <img
-        class="messageImg"
-        src={message?.sender === user._id ? user?.avatar : message?.sender?.avatar}
-        alt=""
+            class="messageImg"
+            src={message?.sender === user._id ? user?.avatar : friend_value?.avatar}
+            alt=""
         />
         <p class="messageText">{message.text}</p>
     </div>
