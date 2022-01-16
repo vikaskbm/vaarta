@@ -14,6 +14,8 @@ const userRoute = require("./routes/users");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require('./routes/messages')
 
+const port = process.env.PORT || '8100';
+
 dotenv.config();
 
 // const main = async() => {
@@ -79,7 +81,7 @@ dotenv.config();
   app.use("/api/conversations", conversationRoute);
   app.use("/api/messages", messageRoute);
 
-  const server = app.listen(8100, () => {
+  const server = app.listen(port, () => {
     console.log("Backend server is running!" + 8100);
   });
 // }
