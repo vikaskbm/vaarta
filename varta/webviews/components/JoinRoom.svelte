@@ -6,7 +6,7 @@
 	import { conversation } from './stores';
     
     export let user: User;
-    export let accessToken: string = '';
+    // export let accessToken: string = '';
     
     let roomID: string = "";
     let errMsg: string = "";

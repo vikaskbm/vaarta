@@ -40,39 +40,13 @@ ul{
 li:hover{
     background-color:#5e616a;
 }
-h2,h3{
-    margin:0;
-}
-li img{
-    max-width: 50px;
-    height: 50px;
-    border-radius:50%;
-    margin-left:20px;
-    margin-right:8px;
-}
-li div{
-    display:inline-block;
-    vertical-align:top;
-    margin-top:12px;
-}
-li h2{
-    font-size:14px;
-    color:#fff;
-    font-weight:normal;
-    margin-bottom:5px;
-}
-li h3{
-    font-size:12px;
-    color:#7e818a;
-    font-weight:normal;
-}
 
-.status{
+/* .status{
     width:8px;
     height:8px;
     border-radius:50%;
     display:inline-block;
-}
+} */
 </style>
   
 <ul>

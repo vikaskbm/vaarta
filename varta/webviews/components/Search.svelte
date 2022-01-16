@@ -100,12 +100,12 @@
         font-weight:normal;
     }
 
-    .status{
+    /* .status{
         width:8px;
         height:8px;
         border-radius:50%;
         display:inline-block;
-    }
+    } */
 </style>
 
     <header>
