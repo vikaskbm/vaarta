@@ -99,8 +99,8 @@
 
 
 
-{#if !loading && page_value!=='contact'}
+{#if !loading && page_value!=='about'}
     <button style="bottom: 0;" on:click={() => {
-        page.update((input) => "contact")
-    }}>Contact Us</button>
+        page.update((input) => "about")
+    }}>About</button>
 {/if}
