@@ -16,7 +16,7 @@ const messageRoute = require('./routes/messages')
 
 dotenv.config();
 
-const main = async() => {
+// const main = async() => {
   // database connect
   mongoose.connect(
     process.env.MONGO_URL,
@@ -79,9 +79,62 @@ const main = async() => {
   app.use("/api/conversations", conversationRoute);
   app.use("/api/messages", messageRoute);
 
-  app.listen(8100, () => {
+  const server = app.listen(8100, () => {
     console.log("Backend server is running!" + 8100);
   });
+// }
+
+// main();
+
+const io = require('socket.io')(server, {
+  cors: {
+      origin: "*",
+  },
+});
+
+
+let users = []
+
+const addUser = (userId, socketId) => {
+    !users.some(user => user.userId === userId) && 
+        users.push({userId, socketId})
 }
 
-main();
+const getUser = (userId) => {
+    return users.find(user => user.userId === userId)
+}
+
+const removeUser = (userId, socketId) => {
+    users = users.filter(user => user.socketId !== socketId)
+}
+io.on('connection', (socket) => {
+
+    // User connected
+    console.log('a user connected!');
+
+    socket.on("addUser", (userId) => {
+        console.log("Add user")
+        console.log(userId)
+        addUser(userId, socket.id)
+        socket.emit("getUsers", users)
+    })
+
+    // Send messages
+    socket.on("sendMessage", ({senderId, receiverId, text}) => {
+        const user = getUser(receiverId)
+        if(user) {
+            io.to(user.socketId).emit("getMessage", {
+                senderId,
+                text
+            })
+        }
+    })
+
+    // User disconnected
+    socket.on("disconnect", () => {
+        console.log("A user disconnected")
+        removeUser(socket.id);
+        socket.emit("getUsers", users)
+    })
+
+});

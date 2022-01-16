@@ -28,7 +28,9 @@
             user.name = conv?.name;
             user.avatar = 'room'
         } else {
+            console.log(conv)
             const friendId = conv?.members.find((m) => m !== currentUser._id)
+            console.log(friendId)
             getUser(friendId);
         }
     });

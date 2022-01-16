@@ -78,7 +78,7 @@
 
         const conversationId = conversation_value?._id;
         getMessages(conversationId);
-        socket = io("ws://localhost:8101");
+        socket = io("http://localhost:8100");
         socket.emit("addUser", user._id)
         $: newMessage && conversation_value?.members.includes(newMessage.sender) && setNewMessages(newMessage)
     });
