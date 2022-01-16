@@ -6,7 +6,7 @@
 	import { conversation } from './stores';
     
     export let user: User;
-    // export let accessToken: string = '';
+    export let accessToken: string = '';
     
     let roomID: string = "";
     let errMsg: string = "";
@@ -28,9 +28,13 @@
     }
 
     const validateFn = async() => {
-        if(roomID.length !== 8) errMsg='length'
-        else if(isNaN(Number(roomID))) errMsg='nan'
-        else errMsg=''
+        if(roomID.length === 8 && !isNaN(Number(roomID))) {
+            errMsg='';
+            return;
+        } else {
+            if(roomID.length !== 8) errMsg='length'
+            if(isNaN(Number(roomID))) errMsg='nan'
+        }
     }
 
 </script>
@@ -47,11 +51,11 @@
         placeholder="Search Friends?"
         bind:value={roomID}
         on:input={validateFn}>
-    <button type="submit" on:click={createRoom}>
+    <button type="submit" on:click={createRoom} style="margin-bottom: 10px;">
         Create Room
     </button>
     {#if errMsg === 'nan'}
-        <p style="color: red;">Room ID must be 8 digits long</p>
+        <p style="color: red;">Room ID must only contain digits</p>
     {/if}
 
     {#if errMsg === 'length'}

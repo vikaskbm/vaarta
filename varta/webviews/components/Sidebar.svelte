@@ -4,6 +4,7 @@
     import ConversationList from "./ConversationList.svelte";
     import Chatbox from "./Chatbox.svelte";
     import CreateRoom from './CreateRoom.svelte';
+    import JoinRoom from './JoinRoom.svelte';
 
     import type { User } from '../types';
 
@@ -76,7 +77,7 @@
     {:else if page_value==='create_room'}
         <CreateRoom {user} {accessToken}/>
     {:else if page_value==='join_room'}
-        <Chatbox {user} {accessToken}/>
+        <JoinRoom {user} {accessToken}/>
     {:else}
         <h1>This is contact component</h1>
         <button on:click={() => {

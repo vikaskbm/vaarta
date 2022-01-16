@@ -123,6 +123,16 @@
  
 <style>
     
+    .conversationImgGrp {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+        font-size: 50px;
+        color: #fff;
+        text-align: center;
+    }
     .conversationBox {
         display: flex;
         align-items: center;
@@ -192,22 +202,22 @@ aside{
 }
 </style>
 
-<aside>
-    <header>
-        <div class="conversationBox">
+<header>
+    <div class="conversationBox">
+        {#if conversation_value?.type==='room' }
+            <span class="conversationImgGrp">{ conversation_value?.name[0].toUpperCase()}</span>
+            <span class="conversationName">{ conversation_value?.name } - { conversation_value?.uuid }</span>
+        {:else}
             <img
-                class="conversationImg"
-                src={ friend_value?.avatar }
-                alt=""
+            class="conversationImg"
+            src={ friend_value?.avatar }
+            alt=""
             />
             <span class="conversationName">Chat with {friend_value?.name}</span>
-        </div>
-    </header>
-    
+        {/if}
+    </div>
+</header>
    
-</aside>
-
-
 <main>
     {#if conversation_value }
        <div class="chatBoxTop" bind:this={div}>
