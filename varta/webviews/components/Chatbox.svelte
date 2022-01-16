@@ -151,7 +151,7 @@
         max-width:100%;
         padding: none;
         
-        max-height:430px;
+        max-height:400px;
     }
 
     .chatBoxTop {
@@ -183,34 +183,25 @@
         background-color: teal;
         color: white;
     }
-    
-aside{
-    width:250px;
-    height:100px;
-    max-height:175px;
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
-}
 </style>
-
-<header>
-    <div class="conversationBox">
-        {#if conversation_value?.type==='room' }
-            <span class="conversationImgGrp">{ conversation_value?.name[0].toUpperCase()}</span>
-            <span class="conversationName">{ conversation_value?.name } - { conversation_value?.uuid }</span>
-        {:else}
-            <img
-            class="conversationImg"
-            src={ friend_value?.avatar }
-            alt=""
-            />
-            <span class="conversationName">Chat with {friend_value?.name}</span>
-        {/if}
-    </div>
-</header>
    
 <main>
+    <header>
+        <div class="conversationBox">
+            {#if conversation_value?.type==='room' }
+                <span class="conversationImgGrp">{ conversation_value?.name[0].toUpperCase()}</span>
+                <span class="conversationName">{ conversation_value?.name } - { conversation_value?.uuid }</span>
+            {:else}
+                <img
+                class="conversationImg"
+                src={ friend_value?.avatar }
+                alt=""
+                />
+                <span class="conversationName">Chat with {friend_value?.name}</span>
+            {/if}
+        </div>
+    </header>
+    
     {#if conversation_value }
        <div class="chatBoxTop" bind:this={div}>
            {#each messages as msg}
