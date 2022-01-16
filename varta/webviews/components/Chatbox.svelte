@@ -147,11 +147,11 @@
     main{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         max-width:100%;
-        padding: none;
+        justify-content: space-between;
         
-        max-height:400px;
+        height:330px;
+        max-height:330px;
     }
 
     .chatBoxTop {
@@ -161,46 +161,57 @@
 		overflow-y: scroll;
     }
     .chatBoxBottom {
+        border-top: solid 1px white;
         margin-top: 5px;
-        padding-bottom: none;
-        margin-bottom: none;
+        padding-bottom: 0px;
+        margin-bottom: px;
+        min-width: 158px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     .chatMessageInput {
-        width: 80%;
-        height: 90px;
+        /* width: 80%;
+        height: 90px; */
         padding: 8px;
+    }
+    textarea { 
+        resize:vertical horizontal; 
+        max-height:175px; 
+        min-height:90px;
+        max-width:85%; 
+        min-width:80%; 
     }
 
     .chatSubmitButton {
-        width: 60px;
+        width: 20%;
+        min-width: 36px;
+        text-overflow: ellipsis;
         height: 30px;
         border: none;
-        margin-top: 4.5rem;
         cursor: pointer;
         background-color: teal;
         color: white;
+        align-self: flex-end;
     }
 </style>
    
+<header>
+    <div class="conversationBox">
+        {#if conversation_value?.type==='room' }
+            <span class="conversationImgGrp">{ conversation_value?.name[0].toUpperCase()}</span>
+            <span class="conversationName">{ conversation_value?.name } - { conversation_value?.uuid }</span>
+        {:else}
+            <img
+            class="conversationImg"
+            src={ friend_value?.avatar }
+            alt=""
+            />
+            <span class="conversationName">Chat with {friend_value?.name}</span>
+        {/if}
+    </div>
+</header>
 <main>
-    <header>
-        <div class="conversationBox">
-            {#if conversation_value?.type==='room' }
-                <span class="conversationImgGrp">{ conversation_value?.name[0].toUpperCase()}</span>
-                <span class="conversationName">{ conversation_value?.name } - { conversation_value?.uuid }</span>
-            {:else}
-                <img
-                class="conversationImg"
-                src={ friend_value?.avatar }
-                alt=""
-                />
-                <span class="conversationName">Chat with {friend_value?.name}</span>
-            {/if}
-        </div>
-    </header>
     
     {#if conversation_value }
        <div class="chatBoxTop" bind:this={div}>
