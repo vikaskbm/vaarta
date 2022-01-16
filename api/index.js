@@ -45,7 +45,7 @@ dotenv.config();
   passport.use(new GitHubStrategy({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://127.0.0.1:8100/auth/github/callback",
+      callbackURL: `https://vaarta-backend.herokuapp.com/auth/github/callback`,
     },
 
     async function(_, __, profile, cb) {
@@ -82,7 +82,7 @@ dotenv.config();
   app.use("/api/messages", messageRoute);
 
   const server = app.listen(port, () => {
-    console.log("Backend server is running!" + 8100);
+    console.log("Backend server is running!" + port);
   });
 // }
 
