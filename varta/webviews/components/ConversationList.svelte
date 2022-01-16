@@ -6,7 +6,7 @@
     export let accessToken: string;
     export let user: User;
     
-    let conversationList: Array<{members: [], type:String, name: string} | null> = [];
+    let conversationList: Array<{members: [], type:string, name: string} | null> = [];
 
     onMount(async () => {
         window.addEventListener("message", async (event) => {
@@ -67,15 +67,3 @@ li:hover{
         {/each}
     </ul>
 </main>
-  
-  
-  
-  
-  <!-- <ul>
-    {#each conversations as conversation (conversation.username)}
-        <li class:complete={conversation.username}>
-            {conversation.name}
-        </li>
-    {/each} 
-  </ul>
-   -->

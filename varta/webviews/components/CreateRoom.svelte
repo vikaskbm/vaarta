@@ -20,7 +20,6 @@
                     name: roomName
                 });
 
-            console.log(res)
             page.update((input) => "chat")
             conversation.update(() => res.data)
             roomName = ''

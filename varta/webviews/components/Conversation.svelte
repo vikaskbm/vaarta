@@ -7,7 +7,7 @@
 	import { friend } from './stores.js';
 
     export let currentUser: User;
-    export let conv: {members: [], type:String, name: string} | null = {members:[], type:"", name:""};
+    export let conv: {members: [], type:string, name: string} | null = {members:[], type:"", name:""};
     export let accessToken: string;
     
     let user: User;
@@ -25,12 +25,9 @@
         }
 
         if(conv?.type === 'room') {
-            user.name = conv?.name;
-            user.avatar = 'room'
+            // user?.name = conv?.name;
         } else {
-            console.log(conv)
             const friendId = conv?.members.find((m) => m !== currentUser._id)
-            console.log(friendId)
             getUser(friendId);
         }
     });
@@ -78,9 +75,9 @@
     friend.update(() => user)
 }}>
     {#if conv?.type === 'room'}
-        <span class="conversationImgGrp">{conv?.name[0].toUpperCase()}</span>
+        <span class="conversationImgGrp">{ conv?.name[0].toUpperCase() }</span>
         <span class="conversationName">{ conv?.name }</span>
-        {:else}
+    {:else}
         <img
             class="conversationImg"
             src={ user?.avatar }

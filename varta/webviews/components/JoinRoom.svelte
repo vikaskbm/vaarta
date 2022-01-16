@@ -17,8 +17,6 @@
                     userId: user._id,
                     roomID: roomID
             }).then(res => {
-                console.log(res)
-                console.log(res)
                 page.update((input) => "chat")
                 conversation.update(() => res.data)
                 roomID = ''
