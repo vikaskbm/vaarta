@@ -1,1 +1,1 @@
-export const apiBaseUrl = 'http://127.0.0.1:8100'
+export const apiBaseUrl = 'https://vaarta-backend.herokuapp.com'
