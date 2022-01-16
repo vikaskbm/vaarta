@@ -31,8 +31,9 @@
         max-width:100%;
         padding: none;
         
-        height:310px;
-        max-height:310px;
+        min-height:100px;
+        height:330px;
+        max-height:330px;
     }
     .search {
         width: 100%;

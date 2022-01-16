@@ -5,7 +5,8 @@
     import Chatbox from "./Chatbox.svelte";
     import CreateRoom from './CreateRoom.svelte';
     import JoinRoom from './JoinRoom.svelte';
-
+    import About from './About.svelte'
+    
     import type { User } from '../types';
 
 	import { page } from './stores.js';
@@ -79,10 +80,7 @@
     {:else if page_value==='join_room'}
         <JoinRoom {user} {accessToken}/>
     {:else}
-        <h1>This is contact component</h1>
-        <button on:click={() => {
-            page.update((input) => "home")
-        }}>Back</button>
+        <About />
     {/if}
     
     <button on:click={() => {
@@ -103,6 +101,6 @@
 
 {#if !loading && page_value!=='contact'}
     <button style="bottom: 0;" on:click={() => {
-        page.update((input) => "chat")
+        page.update((input) => "contact")
     }}>Contact Us</button>
 {/if}
