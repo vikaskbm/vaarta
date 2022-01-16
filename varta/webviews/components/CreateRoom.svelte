@@ -31,10 +31,19 @@
 
 </script>
  
-<style>
-    
 
+<style>
+    .search {
+        display: flex;
+        flex-direction: column;
+        max-width:100%;
+        padding: none;
+        
+        height:410px;
+        max-height:410px;
+    }
 </style>
+
 
 <div class="search">
     <input 
@@ -43,7 +52,7 @@
         placeholder="Create room name"
         bind:value={roomName}
         >
-    <button type="submit" on:click={createRoom}>
+    <button type="submit" on:click={createRoom} style="margin-top: 10px;">
         Create
     </button>
 </div>

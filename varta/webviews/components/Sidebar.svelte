@@ -85,7 +85,7 @@
         }}>Back</button>
     {/if}
     
-    <button style="bottom: 0; margin-top: 170%;" on:click={() => {
+    <button on:click={() => {
         accessToken = ''
         user = null
         page.update((input) => "chat")

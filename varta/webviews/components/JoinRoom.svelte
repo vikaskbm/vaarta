@@ -44,8 +44,15 @@
 </script>
  
 <style>
-    
-
+    .search {
+        display: flex;
+        flex-direction: column;
+        max-width:100%;
+        padding: none;
+        
+        height:410px;
+        max-height:410px;
+    }
 </style>
 
 <div class="search">
@@ -55,7 +62,7 @@
         placeholder="Enter room name"
         bind:value={roomID}
         on:input={validateFn}>
-    <button type="submit" on:click={joinRoom} style="margin-bottom: 10px;">
+    <button type="submit" on:click={joinRoom} style="margin-top:10px">
         Join
     </button>
     {#if errMsg === 'nan'}

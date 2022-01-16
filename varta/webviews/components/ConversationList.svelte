@@ -29,13 +29,22 @@
   
   
 <style>
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width:100%;
+    padding: none;
+    
+    max-height:300px;
+}
 ul{
     width:104%;
     padding-left:0;
     padding: none;
     list-style-type:none;
     overflow-y:scroll;
-    height:400px;
 }
 li:hover{
     background-color:#5e616a;
@@ -49,14 +58,15 @@ li:hover{
 } */
 </style>
   
-<ul>
-    {#each conversationList as conv}
+<main>
+    <ul>
+        {#each conversationList as conv}
         <li>
             <Conversation {conv} currentUser={user} {accessToken}/>
         </li>
-    {/each}
-</ul>
-  
+        {/each}
+    </ul>
+</main>
   
   
   

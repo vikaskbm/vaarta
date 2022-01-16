@@ -41,7 +41,7 @@
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .conversationImg {

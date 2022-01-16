@@ -24,6 +24,16 @@
 </script>
 
 <style>
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width:100%;
+        padding: none;
+        
+        height:310px;
+        max-height:310px;
+    }
     .search {
         width: 100%;
         display: flex;
@@ -122,14 +132,15 @@
         </div>
     </header>
     <br>
-    {#each searchList as searchItem}
+    <main>
+        {#each searchList as searchItem}
         {#if searchItem._id!==user._id}
-            <ul>
-                <li on:click={() => {
-                    page.update((input) => "chat")
-                    conversation.update(() => null)
-                    friend.update(() => searchItem)
-                }}>
+        <ul>
+            <li on:click={() => {
+                page.update((input) => "chat")
+                conversation.update(() => null)
+                friend.update(() => searchItem)
+            }}>
                     <img src="{searchItem.avatar}" alt="">
                     <div>
                         <h2>{searchItem.name}</h2>
@@ -141,11 +152,11 @@
             </ul>
         {/if}
     {/each}
-
-
-
-
-
+    </main>
+            
+            
+            
+            
 
 
 
