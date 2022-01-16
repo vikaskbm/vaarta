@@ -11,17 +11,21 @@
     let roomID: string = "";
     let errMsg: string = "";
 
-    const createRoom = async() => {
+    const joinRoom = async() => {
         if(errMsg === "") {
-            const res = await axios.post(`${apiBaseUrl}/api/conversations/room/join`, {
+            await axios.post(`${apiBaseUrl}/api/conversations/room/join`, {
                     userId: user._id,
-                    name: roomID
-                });
+                    roomID: roomID
+            }).then(res => {
+                console.log(res)
+                console.log(res)
+                page.update((input) => "chat")
+                conversation.update(() => res.data)
+                roomID = ''
+            }).catch(err => {
+                console.log(err)
+            })
 
-            console.log(res)
-            page.update((input) => "chat")
-            conversation.update(() => res.data)
-            roomID = ''
         } else {
             const err = [];
         }
@@ -51,8 +55,8 @@
         placeholder="Search Friends?"
         bind:value={roomID}
         on:input={validateFn}>
-    <button type="submit" on:click={createRoom} style="margin-bottom: 10px;">
-        Create Room
+    <button type="submit" on:click={joinRoom} style="margin-bottom: 10px;">
+        Join Room
     </button>
     {#if errMsg === 'nan'}
         <p style="color: red;">Room ID must only contain digits</p>

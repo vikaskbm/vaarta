@@ -72,24 +72,24 @@ router.post("/room/create", async (req, res) => {
 router.post("/room/join", async (req, res) => {
     try {
         Conversation.findOneAndUpdate(
-            { uuid: req.params.roomID }, 
-        { $addToSet: { members: req.params.userId  } },
-        function (error, success) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(success);
-            }
-        });
-        const roomConversation = await Conversation.find({
-            uuid: req.params.userId,
+            { uuid: req.body.roomID }, 
+            { $addToSet: { members: req.body.userId  } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success);
+                }
+            });
+        const roomConversation = await Conversation.findOne({
+            uuid: req.body.roomID,
             type: 'room'
         });
+        console.log("VIKAS", roomConversation)
         
-        const savedRoom = await newRoomConversation.save();
-        res.status(200).json(savedRoom)
+        res.status(200).json(roomConversation)
     } catch(err) {
-        res.send('Something went wrong')
+        res.status(500).json(err)
     }
 })
 
