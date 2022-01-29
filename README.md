@@ -1,2 +1,0 @@
-# vaarta
-This is RTC
