@@ -19,16 +19,20 @@ person directly from the VSCode app.
 ## Images
 
 1. Login/Signup Screen
-   ![Login/Signup Screen](./images/1.png)
+
+![Login/Signup Screen](./images/1.png)
 
 2. Home Page
-   ![Home Page Screen](./images/2.png)
+
+![Home Page Screen](./images/2.png)
 
 3. Chat Screen
-   ![Chat Screen](./images/4.png)
+
+![Chat Screen](./images/4.png)
 
 4. Group Chat
-   ![Group Chat Screen](./images/3.png)
+
+![Group Chat Screen](./images/3.png)
 
 ## Future Plans
 
